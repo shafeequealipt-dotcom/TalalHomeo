@@ -3,8 +3,7 @@
   "_tbc": [
     "hours — Mon–Sat confirmed; Sunday 11:00 am – 1:00 pm is from the Google listing, not yet confirmed",
     "address — third-party directories list a Fort Kochi address instead",
-    "doctors[].bio and doctors[].regNo — not yet supplied",
-    "instagram — currently the doctor's personal handle, not clinic-branded"
+    "doctors[].bio and doctors[].regNo — not yet supplied"
   ],
   "name": "Dr. Talal's Alsharaf Homoeo Medical Centre",
   "shortName": "Alsharaf Homoeo",
@@ -94,7 +93,7 @@
   ],
   "links": {
     "whatsapp": "https://wa.me/918921711721",
-    "instagram": "https://www.instagram.com/talalmanathodi",
+    "instagram": "https://www.instagram.com/drtalal_alsharaf",
     "facebook": "https://www.facebook.com/share/1FcrDsowRp/",
     "maps": "https://www.google.com/maps/search/?api=1&query=Dr+Talal%27s+Alsharaf+Homoeo+Medical+Centre+Kappalandimukku+Mattancherry+Kochi",
     "directions": "https://www.google.com/maps/dir/?api=1&destination=Dr+Talal%27s+Alsharaf+Homoeo+Medical+Centre+Kappalandimukku+Mattancherry+Kochi",
