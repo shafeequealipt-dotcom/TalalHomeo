@@ -12,6 +12,6 @@
     "preview:secure": "node scripts/preview-with-headers.mjs"
   },
   "dependencies": {
-    "astro": "^5.14.1"
+    "astro": "^7.3.2"
   }
 }
