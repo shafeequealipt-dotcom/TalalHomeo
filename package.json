@@ -1,0 +1,16 @@
+{
+  "name": "alsharaf-homoeo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/generate-sitemap.mjs",
+    "preview": "astro preview",
+    "astro": "astro",
+    "deploy": "bash scripts/deploy.sh"
+  },
+  "dependencies": {
+    "astro": "^5.14.1"
+  }
+}

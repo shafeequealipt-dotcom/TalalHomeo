@@ -1,0 +1,81 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import clinic from '../../data/clinic.json';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = () =>
+  clinic.services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+
+const { service } = Astro.props;
+
+const others = clinic.services.filter((s) => s.slug !== service.slug);
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalTherapy',
+  name: service.title,
+  description: service.short,
+  medicineSystem: 'Homeopathic',
+  provider: { '@type': 'MedicalClinic', name: clinic.name },
+};
+---
+
+<Base
+  title={`${service.title} — Homoeopathic Treatment in Kochi`}
+  description={service.short}
+  schema={serviceSchema}
+>
+  <section>
+    <div class="wrap">
+      <div class="breadcrumb">
+        <a href="/">Home</a> <span>/</span> <a href="/services">Treatments</a> <span>/</span>
+        <span>{service.title}</span>
+      </div>
+
+      <p class="kicker">Treatment {service.no}</p>
+      <h1>{service.title}</h1>
+
+      <div class="prose">
+        <p class="lede">{service.intro}</p>
+      </div>
+
+      <h2 style="margin-top: var(--s7);">Complaints treated</h2>
+      <ul class="treat-list">
+        {service.treats.map((t) => (
+          <li><Icon name="check" /> <span>{t}</span></li>
+        ))}
+      </ul>
+
+      <aside class="medical-note">
+        <strong>Before you come in.</strong> {service.note}
+      </aside>
+
+      <div class="hero-cta" style="margin-top: var(--s6);">
+        <a class="btn btn-wa" href={clinic.links.whatsapp} target="_blank" rel="noopener noreferrer">
+          <Icon name="whatsapp" /> Ask about {service.title.toLowerCase()}
+        </a>
+        <a class="btn btn-ghost" href={`tel:${clinic.phone.tel}`}>
+          <Icon name="phone" /> {clinic.phone.display}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="wrap">
+      <p class="kicker">Also treated here</p>
+      <h2>Other treatments.</h2>
+      <div class="cards">
+        {others.map((s) => (
+          <a class="card" href={`/services/${s.slug}`}>
+            <span class="card-no">{s.no}</span>
+            <h3>{s.title}</h3>
+            <p>{s.short}</p>
+            <span class="go">Learn more <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,122 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import clinic from '../data/clinic.json';
+---
+
+<Base
+  title="Visit Us — Hours, Address & Directions | Alsharaf Homoeo, Kochi"
+  description="Consulting hours, address and directions for Dr. Talal's Alsharaf Homoeo Medical Centre at Kappalandimukku, Kochi. Call 089217 11721 or message on WhatsApp."
+>
+  <section>
+    <div class="wrap">
+      <div class="breadcrumb"><a href="/">Home</a> <span>/</span> <span>Visit</span></div>
+      <p class="kicker">Visit us</p>
+      <h1>Hours, address and directions.</h1>
+      <p class="lede">
+        Walk in during consulting hours, or send a WhatsApp message first — it usually means far
+        less waiting, especially during the evening session.
+      </p>
+
+      <div class="visit-grid">
+        <div>
+          <div class="hero-card">
+            <h2><Icon name="clock" /> Consulting hours</h2>
+            <ul class="hours-list">
+              {clinic.hours.map((h) => (
+                <li>
+                  <span class="day">{h.days}</span>
+                  <span class="slots">{h.slots.map((s) => <span>{s}</span>)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="visit-facts" style="margin-top: var(--s5);">
+            <div class="fact">
+              <Icon name="map" />
+              <div>
+                <h4>Address</h4>
+                <p>
+                  {clinic.address.line1},<br />
+                  {clinic.address.line2},<br />
+                  {clinic.address.city}, {clinic.address.state} {clinic.address.postalCode}
+                </p>
+                <p style="margin-top: var(--s2);">
+                  Plus code: {clinic.address.plusCode}
+                </p>
+              </div>
+            </div>
+            <div class="fact">
+              <Icon name="phone" />
+              <div>
+                <h4>Phone</h4>
+                <p><a href={`tel:${clinic.phone.tel}`}>{clinic.phone.display}</a></p>
+              </div>
+            </div>
+            <div class="fact">
+              <Icon name="whatsapp" />
+              <div>
+                <h4>WhatsApp</h4>
+                <p><a href={clinic.links.whatsapp} target="_blank" rel="noopener noreferrer">Message the clinic</a></p>
+              </div>
+            </div>
+            <div class="fact">
+              <Icon name="car" />
+              <div>
+                <h4>Parking &amp; access</h4>
+                <p>Free parking on site. Ground-floor consulting rooms, restroom available.</p>
+              </div>
+            </div>
+            <div class="fact">
+              <Icon name="wallet" />
+              <div>
+                <h4>Payment</h4>
+                <p>{clinic.consultationFee} per consultation. Google Pay and cash accepted.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="map-wrap" style="aspect-ratio: 3 / 4;">
+            <iframe
+              src={clinic.links.mapEmbed}
+              title={`Map showing ${clinic.name}, ${clinic.address.line2}`}
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href={clinic.links.directions} target="_blank" rel="noopener noreferrer">
+              <Icon name="map" /> Get directions
+            </a>
+            <a class="btn btn-ghost" href={clinic.links.instagram} target="_blank" rel="noopener noreferrer">
+              <Icon name="instagram" /> Instagram
+            </a>
+            <a class="btn btn-ghost" href={clinic.links.facebook} target="_blank" rel="noopener noreferrer">
+              <Icon name="facebook" /> Facebook
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="wrap">
+      <p class="kicker">Getting here</p>
+      <h2>Landmarks nearby.</h2>
+      <div class="prose">
+        <p>
+          The clinic is at Kappalandimukku, Kochi, next to the Bharat Petroleum pump —
+          roughly ten minutes from Fort Kochi and the Jew Town area, and easily reached
+          from Palluruthy, Thoppumpady and Ernakulam.
+        </p>
+        <p>
+          Serving {clinic.address.areasServed.join(', ')}.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

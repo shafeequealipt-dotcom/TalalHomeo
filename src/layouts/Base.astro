@@ -1,0 +1,105 @@
+---
+import clinic from '../data/clinic.json';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import ActionBar from '../components/ActionBar.astro';
+import logo from '../assets/logo.jpeg';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Extra JSON-LD (e.g. BlogPosting) merged in alongside the clinic schema */
+  schema?: Record<string, unknown>;
+  ogType?: string;
+}
+
+const { title, description, schema, ogType = 'website' } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site).href;
+const ogImage = new URL('/og.png', Astro.site).href;
+
+// MedicalClinic schema — drives the Google knowledge panel and local results.
+const clinicSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalClinic',
+  '@id': `${Astro.site}#clinic`,
+  name: clinic.name,
+  alternateName: clinic.nameMalayalam,
+  url: Astro.site?.toString(),
+  logo: new URL(logo.src, Astro.site).href,
+  image: new URL(logo.src, Astro.site).href,
+  telephone: clinic.phone.tel,
+  medicalSpecialty: 'Homeopathic',
+  priceRange: clinic.consultationFee,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: `${clinic.address.line1}, ${clinic.address.line2}`,
+    addressLocality: clinic.address.city,
+    addressRegion: clinic.address.state,
+    postalCode: clinic.address.postalCode,
+    addressCountry: clinic.address.country,
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: clinic.geo.lat,
+    longitude: clinic.geo.lng,
+  },
+  openingHoursSpecification: clinic.hoursSchema.map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: h.days,
+    opens: h.opens,
+    closes: h.closes,
+  })),
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: clinic.rating.value,
+    reviewCount: clinic.rating.count,
+    bestRating: '5',
+  },
+  sameAs: [clinic.links.instagram, clinic.links.facebook],
+  areaServed: clinic.address.areasServed.map((a) => ({ '@type': 'Place', name: a })),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:site_name" content={clinic.name} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#0B6B63" />
+    <meta name="geo.region" content="IN-KL" />
+    <meta name="geo.placename" content="Kochi" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(clinicSchema)} />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <ActionBar />
+  </body>
+</html>

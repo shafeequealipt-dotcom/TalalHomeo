@@ -1,0 +1,306 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import DoctorPhoto from '../components/DoctorPhoto.astro';
+import ReviewSlider from '../components/ReviewSlider.astro';
+import clinic from '../data/clinic.json';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: clinic.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Base
+  title="Homoeopathy Clinic in Kochi | Dr. Talal's Alsharaf Homoeo Medical Centre"
+  description="Homoeopathic treatment in Kochi for allergies, sinusitis, adenoids in children, migraine and skin complaints. Rated 5.0 from 163 Google reviews. Call 089217 11721."
+  schema={faqSchema}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-card hero-doctors">
+        <h2><Icon name="users" /> Our doctors</h2>
+        <ul class="doc-row">
+          {clinic.doctors.map((d) => (
+            <li>
+              <a class="doc" href="/about#doctors">
+                <DoctorPhoto
+                  photo={d.photo}
+                  alt={`${d.name}, ${d.role}`}
+                  widths={[180, 320]}
+                  sizes="(min-width: 900px) 140px, 30vw"
+                  class="doc-photo"
+                  loading="eager"
+                />
+                <span class="doc-name">{d.name}</span>
+                <span class="doc-role">{d.role}</span>
+                <span class="doc-quals">{d.quals}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="hero-intro">
+        <a class="rating-chip" href={clinic.links.reviews} target="_blank" rel="noopener noreferrer">
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <span>{clinic.rating.value}</span>
+          <span class="count">from {clinic.rating.count} Google reviews</span>
+        </a>
+
+        <h1>
+          Homoeopathy in Kochi that <em>treats the person</em>, not just the complaint.
+        </h1>
+
+        <p class="lede">
+          A consultation here starts with your whole story — sleep, appetite, stress, history —
+          before any remedy is chosen. Families across Kochi come to us for allergies and
+          sinusitis, children's adenoids, migraine and long-standing skin complaints.
+        </p>
+
+        <div class="hero-meta">
+          <div><Icon name="map" /> Kappalandimukku, Kochi</div>
+          <div><Icon name="car" /> Free parking</div>
+          <div><Icon name="wallet" /> Consultation {clinic.consultationFee}</div>
+        </div>
+      </div>
+
+      <div class="hero-card hero-hours">
+        <h2><Icon name="clock" /> Consulting hours</h2>
+        <ul class="hours-list">
+          {clinic.hours.map((h) => (
+            <li>
+              <span class="day">{h.days}</span>
+              <span class="slots">{h.slots.map((s) => <span>{s}</span>)}</span>
+            </li>
+          ))}
+        </ul>
+        <a class="btn btn-ghost hours-directions" href={clinic.links.directions} target="_blank" rel="noopener noreferrer">
+          <Icon name="map" /> Get directions
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TRUST STRIP ===================== -->
+  <section class="trust">
+    <div class="wrap trust-grid">
+      <div class="trust-item"><span class="n">5.0★</span><span class="l">Google rating</span></div>
+      <div class="trust-item"><span class="n">{clinic.rating.count}</span><span class="l">Patient reviews</span></div>
+      <div class="trust-item"><span class="n">{clinic.doctors.length}</span><span class="l">Consulting doctors</span></div>
+      <div class="trust-item"><span class="n">7 days</span><span class="l">Open every week</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== SERVICES ===================== -->
+  <section>
+    <div class="wrap">
+      <p class="kicker">What we treat</p>
+      <h2>Gentle answers for stubborn complaints.</h2>
+      <p class="lede">
+        Five areas patients come to this clinic for most often — each treated constitutionally,
+        reviewed at every follow-up, and coordinated with whatever care you are already under.
+      </p>
+
+      <div class="cards">
+        {clinic.services.map((s) => (
+          <a class="card" href={`/services/${s.slug}`}>
+            <span class="card-no">{s.no}</span>
+            <h3>{s.title}</h3>
+            <p>{s.short}</p>
+            <span class="go">Learn more <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== APPROACH ===================== -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="visit-grid">
+        <div>
+          <p class="kicker">Our approach</p>
+          <h2>Medicine that listens before it prescribes.</h2>
+          <div class="prose">
+            <p>
+              Homoeopathy treats the person carrying the illness, not the illness on its own. That
+              is why a first consultation here runs long — how you sleep, what you crave, what
+              makes the complaint better or worse, what was happening in your life when it began.
+            </p>
+            <p>
+              Remedies are natural, gentle enough for infants, and chosen individually rather than
+              picked off a standard list for a diagnosis. Progress is reviewed at every visit and
+              the plan adjusted, instead of the same prescription repeating indefinitely.
+            </p>
+            <a class="btn btn-ghost" href="/about">
+              Meet the doctors <Icon name="arrow" />
+            </a>
+          </div>
+        </div>
+
+        <div class="visit-facts">
+          <div class="fact">
+            <Icon name="stethoscope" />
+            <div>
+              <h4>Detailed case-taking</h4>
+              <p>The first consultation covers your full history, not only the presenting complaint.</p>
+            </div>
+          </div>
+          <div class="fact">
+            <Icon name="leaf" />
+            <div>
+              <h4>Gentle, individualised remedies</h4>
+              <p>Suitable for children and older patients, chosen for you rather than for the diagnosis.</p>
+            </div>
+          </div>
+          <div class="fact">
+            <Icon name="users" />
+            <div>
+              <h4>Alongside your existing care</h4>
+              <p>Bring current prescriptions and reports — treatment is planned around them, never against them.</p>
+            </div>
+          </div>
+          <div class="fact">
+            <Icon name="clock" />
+            <div>
+              <h4>Structured follow-up</h4>
+              <p>Every visit reviews what changed, so the plan moves with you.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== REVIEWS ===================== -->
+  <ReviewSlider />
+
+  <!-- ===================== BLOG PREVIEW ===================== -->
+  {posts.length > 0 && (
+    <section class="section-alt">
+      <div class="wrap">
+        <p class="kicker">Health notes</p>
+        <h2>Reading from the clinic.</h2>
+        <p class="lede">Plain-language notes on the complaints we see most often in Kochi.</p>
+
+        <div class="post-list">
+          {posts.map((p) => (
+            <a class="post-card" href={`/blog/${p.id}`}>
+              <time datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
+              <h3>{p.data.title}</h3>
+              <p>{p.data.description}</p>
+              <div class="tags">
+                {p.data.tags.slice(0, 2).map((t) => <span class="tag">{t}</span>)}
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <p style="margin-top: var(--s5);"><a href="/blog">All health notes →</a></p>
+      </div>
+    </section>
+  )}
+
+  <!-- ===================== FAQ ===================== -->
+  <section>
+    <div class="wrap">
+      <p class="kicker">Good to know</p>
+      <h2>Questions, answered.</h2>
+      <div class="faqs">
+        {clinic.faqs.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VISIT ===================== -->
+  <section class="section-alt">
+    <div class="wrap">
+      <p class="kicker">Visit us</p>
+      <h2>Find the clinic.</h2>
+
+      <div class="visit-grid">
+        <div class="visit-facts">
+          <div class="fact">
+            <Icon name="map" />
+            <div>
+              <h4>Address</h4>
+              <p>
+                {clinic.address.line1},<br />
+                {clinic.address.line2},<br />
+                {clinic.address.city}, {clinic.address.state} {clinic.address.postalCode}
+              </p>
+              <p style="margin-top: var(--s2);">
+                <a href={clinic.links.directions} target="_blank" rel="noopener noreferrer">Open in Google Maps →</a>
+              </p>
+            </div>
+          </div>
+          <div class="fact">
+            <Icon name="phone" />
+            <div>
+              <h4>Call or message</h4>
+              <p>
+                <a href={`tel:${clinic.phone.tel}`}>{clinic.phone.display}</a> ·
+                <a href={clinic.links.whatsapp} target="_blank" rel="noopener noreferrer"> WhatsApp</a>
+              </p>
+            </div>
+          </div>
+          <div class="fact">
+            <Icon name="car" />
+            <div>
+              <h4>Parking &amp; access</h4>
+              <p>Free parking on site. Consulting rooms on the ground floor, restroom available.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-wrap">
+          <iframe
+            src={clinic.links.mapEmbed}
+            title={`Map showing ${clinic.name}, ${clinic.address.line2}`}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Ready when you are.</h2>
+      <p>
+        Walk in during consulting hours, or send a WhatsApp message first so there is less waiting —
+        especially in the evening session.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href={clinic.links.whatsapp} target="_blank" rel="noopener noreferrer">
+          <Icon name="whatsapp" /> Message on WhatsApp
+        </a>
+        <a class="btn btn-ghost" href={`tel:${clinic.phone.tel}`}>
+          <Icon name="phone" /> Call {clinic.phone.display}
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

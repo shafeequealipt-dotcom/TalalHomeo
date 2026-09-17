@@ -1,0 +1,56 @@
+---
+import clinic from '../data/clinic.json';
+import Icon from './Icon.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>{clinic.name}</h4>
+        <p class="ml" style="font-size: var(--t-sm); margin-bottom: var(--s3);">{clinic.nameMalayalam}</p>
+        <p>
+          {clinic.address.line1},<br />
+          {clinic.address.line2},<br />
+          {clinic.address.city}, {clinic.address.state} {clinic.address.postalCode}
+        </p>
+        <p>
+          <a href={`tel:${clinic.phone.tel}`}>{clinic.phone.display}</a>
+        </p>
+        <div class="footer-social">
+          <a href={clinic.links.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp (opens in a new tab)"><Icon name="whatsapp" /></a>
+          <a href={clinic.links.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in a new tab)"><Icon name="instagram" /></a>
+          <a href={clinic.links.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook (opens in a new tab)"><Icon name="facebook" /></a>
+          <a href={clinic.links.directions} target="_blank" rel="noopener noreferrer" aria-label="Directions on Google Maps (opens in a new tab)"><Icon name="map" /></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Treatments</h4>
+        <ul>
+          {clinic.services.map((s) => (
+            <li><a href={`/services/${s.slug}`}>{s.title}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h4>Clinic</h4>
+        <ul>
+          <li><a href="/about">About the centre</a></li>
+          <li><a href="/blog">Health notes</a></li>
+          <li><a href="/contact">Visit &amp; hours</a></li>
+          <li><a href={clinic.links.reviews} target="_blank" rel="noopener noreferrer">Google reviews</a></li>
+        </ul>
+        <h4 style="margin-top: var(--s5);">Areas served</h4>
+        <p>{clinic.address.areasServed.join(' · ')}</p>
+      </div>
+    </div>
+
+    <div class="footer-base">
+      <span>© {year} {clinic.name}</span>
+      <span>Homoeopathic care in Kochi</span>
+    </div>
+  </div>
+</footer>

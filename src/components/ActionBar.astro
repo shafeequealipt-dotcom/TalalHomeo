@@ -1,0 +1,24 @@
+---
+// Fixed mobile action bar: the five things a patient on a phone actually wants.
+// Hidden at >=900px where the nav already carries these.
+import clinic from '../data/clinic.json';
+import Icon from './Icon.astro';
+---
+
+<nav class="action-bar" aria-label="Quick contact">
+  <a href={`tel:${clinic.phone.tel}`}>
+    <Icon name="phone" /> Call
+  </a>
+  <a class="wa" href={clinic.links.whatsapp} target="_blank" rel="noopener noreferrer">
+    <Icon name="whatsapp" /> WhatsApp
+  </a>
+  <a href={clinic.links.directions} target="_blank" rel="noopener noreferrer">
+    <Icon name="map" /> Directions
+  </a>
+  <a href={clinic.links.instagram} target="_blank" rel="noopener noreferrer">
+    <Icon name="instagram" /> Instagram
+  </a>
+  <a href={clinic.links.facebook} target="_blank" rel="noopener noreferrer">
+    <Icon name="facebook" /> Facebook
+  </a>
+</nav>

@@ -1,0 +1,55 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
+---
+
+<Base
+  title="Health Notes | Dr. Talal's Alsharaf Homoeo Medical Centre, Kochi"
+  description="Plain-language notes from our homoeopathy clinic in Kochi — on allergies, children's adenoids, migraine, skin complaints and seasonal health in Kerala."
+>
+  <section>
+    <div class="wrap">
+      <p class="kicker">Health notes</p>
+      <h1>Reading from the clinic.</h1>
+      <p class="lede">
+        Notes written for patients, not for other doctors — what a complaint actually is, what
+        tends to help, and when you should be seen rather than wait it out.
+      </p>
+
+      {allTags.length > 0 && (
+        <div class="tags" style="margin-top: var(--s5);">
+          {allTags.map((t) => <span class="tag">{t}</span>)}
+        </div>
+      )}
+
+      {posts.length === 0 ? (
+        <p style="margin-top: var(--s6);">
+          The first notes are on their way. In the meantime, reach us on
+          <a href="/contact"> WhatsApp or by phone</a>.
+        </p>
+      ) : (
+        <div class="post-list">
+          {posts.map((p) => (
+            <a class="post-card" href={`/blog/${p.id}`}>
+              <time datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
+              <h3>{p.data.title}</h3>
+              <p>{p.data.description}</p>
+              <div class="tags">
+                {p.data.tags.slice(0, 3).map((t) => <span class="tag">{t}</span>)}
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>

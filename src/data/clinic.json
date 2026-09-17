@@ -1,0 +1,290 @@
+{
+  "_README": "SINGLE SOURCE OF TRUTH for all clinic content. Edit here, never in the page files. Any value marked with a matching entry in `_tbc` is an unconfirmed placeholder taken from public listings — confirm with the clinic before launch. See discovery-brief.md.",
+  "_tbc": [
+    "hours — Mon–Sat confirmed; Sunday 11:00 am – 1:00 pm is from the Google listing, not yet confirmed",
+    "address — third-party directories list a Fort Kochi address instead",
+    "doctors[].bio and doctors[].regNo — not yet supplied",
+    "instagram — currently the doctor's personal handle, not clinic-branded"
+  ],
+  "name": "Dr. Talal's Alsharaf Homoeo Medical Centre",
+  "shortName": "Alsharaf Homoeo",
+  "nameMalayalam": "അൽഷറഫ് ഹോമിയോ മെഡിക്കൽ സെന്റർ",
+  "tagline": "Homoeopathy that treats the person, not just the complaint.",
+  "established": null,
+  "address": {
+    "line1": "Near Bharat Petroleum Pump",
+    "line2": "Kappalandimukku",
+    "city": "Kochi",
+    "state": "Kerala",
+    "postalCode": "682002",
+    "country": "IN",
+    "plusCode": "X735+23 Kochi, Kerala",
+    "areasServed": [
+      "Kochi",
+      "Fort Kochi",
+      "Kappalandimukku",
+      "Palluruthy",
+      "Thoppumpady",
+      "Ernakulam"
+    ]
+  },
+  "geo": {
+    "lat": 9.9536,
+    "lng": 76.2577
+  },
+  "phone": {
+    "display": "089217 11721",
+    "tel": "+918921711721",
+    "whatsapp": "918921711721"
+  },
+  "email": null,
+  "rating": {
+    "value": "5.0",
+    "count": 163,
+    "source": "Google"
+  },
+  "consultationFee": "₹250",
+  "hours": [
+    {
+      "days": "Monday – Saturday",
+      "slots": [
+        "10:00 am – 1:00 pm",
+        "5:00 pm – 9:00 pm"
+      ]
+    },
+    {
+      "days": "Sunday",
+      "slots": [
+        "11:00 am – 1:00 pm"
+      ]
+    }
+  ],
+  "hoursSchema": [
+    {
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "10:00",
+      "closes": "13:00"
+    },
+    {
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "17:00",
+      "closes": "21:00"
+    },
+    {
+      "days": [
+        "Sunday"
+      ],
+      "opens": "11:00",
+      "closes": "13:00"
+    }
+  ],
+  "links": {
+    "whatsapp": "https://wa.me/918921711721",
+    "instagram": "https://www.instagram.com/talalmanathodi",
+    "facebook": "https://www.facebook.com/share/1FcrDsowRp/",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Dr+Talal%27s+Alsharaf+Homoeo+Medical+Centre+Kappalandimukku+Mattancherry+Kochi",
+    "directions": "https://www.google.com/maps/dir/?api=1&destination=Dr+Talal%27s+Alsharaf+Homoeo+Medical+Centre+Kappalandimukku+Mattancherry+Kochi",
+    "mapEmbed": "https://www.google.com/maps?q=Dr+Talal%27s+Alsharaf+Homoeo+Medical+Centre+Kappalandimukku+Mattancherry+Kochi&output=embed",
+    "reviews": "https://www.google.com/maps/search/?api=1&query=Dr+Talal%27s+Alsharaf+Homoeo+Medical+Centre+Kappalandimukku+Mattancherry+Kochi"
+  },
+  "doctors": [
+    {
+      "name": "Dr. Talal M",
+      "quals": "BHMS",
+      "role": "Consultant Homoeopath",
+      "bio": "Leads the centre at Kappalandimukku, Kochi, with a practice built on detailed case-taking — sleep, appetite, stress, history and temperament — before any remedy is chosen.",
+      "regNo": null,
+      "photo": "talal"
+    },
+    {
+      "name": "Dr. Tariq M",
+      "quals": "BHMS, DNHE",
+      "role": "Consultant Homoeopath",
+      "bio": "Consults at the centre, with a diploma in nutrition and health education alongside classical homoeopathic practice.",
+      "regNo": null,
+      "photo": "tariq"
+    },
+    {
+      "name": "Dr. Safna M.S",
+      "quals": "BHMS, PGDCFT",
+      "role": "Govt. Medical Officer, CCHD",
+      "bio": "Consults at the centre, with post-graduate training in counselling and family therapy — care for the mind alongside the body.",
+      "regNo": null,
+      "photo": "safna"
+    }
+  ],
+  "services": [
+    {
+      "slug": "allergy-sinusitis",
+      "no": "01",
+      "title": "Allergy & Sinusitis",
+      "short": "Allergic rhinitis, dust and seasonal allergies, sinusitis and recurring colds.",
+      "intro": "The complaint patients mention most often in their reviews of this clinic. Allergic rhinitis, dust allergies, sinusitis and the blocked-nose-every-morning pattern are treated by looking for what sets your reaction off, not by suppressing it each time it flares.",
+      "treats": [
+        "Allergic rhinitis",
+        "Dust and pollen allergy",
+        "Chronic sinusitis",
+        "Recurring colds",
+        "Sneezing on waking",
+        "Allergic asthma"
+      ],
+      "note": "Bring any allergy test reports and your current inhalers or antihistamines to the first consultation so treatment can be coordinated safely."
+    },
+    {
+      "slug": "pediatric-care",
+      "no": "02",
+      "title": "Pediatric Care & Adenoids",
+      "short": "Adenoid enlargement, snoring, mouth-breathing, recurrent colds and tonsillitis in children.",
+      "intro": "Parents come to this clinic most often for enlarged adenoids — a child snoring through the night, breathing through the mouth, sleeping badly and struggling to concentrate at school, with surgery already on the table. Treatment is gentle, reviewed at every visit, and coordinated with your ENT specialist.",
+      "treats": [
+        "Adenoid enlargement",
+        "Snoring and mouth-breathing",
+        "Recurrent tonsillitis",
+        "Frequent colds and fevers",
+        "Poor appetite",
+        "Sleep and attention concerns"
+      ],
+      "note": "Never stop or postpone a surgery your specialist has advised without discussing it with them first. Bring the scan or scope report to your consultation."
+    },
+    {
+      "slug": "migraine-headaches",
+      "no": "03",
+      "title": "Migraine & Headaches",
+      "short": "Migraine, tension headaches and the triggers behind the pattern.",
+      "intro": "Headache care here begins with the pattern — when attacks come, what sets them off, how they end, what else changes around them. Remedies are chosen individually against that picture and reviewed over follow-ups rather than swapped at every visit.",
+      "treats": [
+        "Migraine with or without aura",
+        "Tension headaches",
+        "Sinus headaches",
+        "Menstrual migraine",
+        "Light and sound sensitivity",
+        "Headache with nausea"
+      ],
+      "note": "A simple headache diary for two weeks before your visit — timing, triggers, duration — makes the first consultation considerably more useful."
+    },
+    {
+      "slug": "skin-hair",
+      "no": "04",
+      "title": "Skin & Hair",
+      "short": "Eczema, psoriasis, acne, urticaria, fungal complaints and hair fall.",
+      "intro": "Skin complaints rarely sit on the skin alone. Treatment considers triggers, stress, digestion and history together, which is why the consultation asks about far more than the rash in front of us.",
+      "treats": [
+        "Eczema and dermatitis",
+        "Psoriasis",
+        "Acne",
+        "Urticaria and hives",
+        "Fungal infections",
+        "Hair fall and alopecia"
+      ],
+      "note": "Photographs of a flare at its worst help, since skin often looks calmer on the day of the appointment than it does at 2am."
+    },
+    {
+      "slug": "general-lifestyle",
+      "no": "05",
+      "title": "General & Lifestyle",
+      "short": "Digestive complaints, thyroid and hormonal concerns, joint pain and weight.",
+      "intro": "Long-standing complaints that have been managed rather than resolved — acidity, IBS, thyroid and hormonal concerns, joint pain, weight — are treated constitutionally, alongside whatever your physician already has you on.",
+      "treats": [
+        "Acidity and IBS",
+        "Constipation",
+        "Thyroid concerns",
+        "PCOS and hormonal complaints",
+        "Joint pain and arthritis",
+        "Weight management"
+      ],
+      "note": "Bring recent lab work. Homoeopathic treatment runs alongside your existing prescriptions — never in place of them without your physician's involvement."
+    }
+  ],
+  "faqs": [
+    {
+      "q": "How long does homoeopathic treatment take to work?",
+      "a": "It depends on the complaint and how long you have had it. Acute problems often respond quickly; long-standing conditions are treated over several weeks with regular review. Your doctor will set realistic expectations at the first consultation rather than promise a timeline."
+    },
+    {
+      "q": "Can my child avoid adenoid surgery with homoeopathy?",
+      "a": "Many parents come here hoping to, and reviews describe children improving considerably. But that is not a guarantee, and it is not a decision to make alone — keep your ENT specialist involved, bring the scan reports, and never postpone advised surgery without discussing it with them."
+    },
+    {
+      "q": "Can I take homoeopathic medicines with my existing prescriptions?",
+      "a": "In most cases yes. Never stop or reduce a prescribed medication on your own — bring your current prescriptions to the consultation so treatment can be planned around them."
+    },
+    {
+      "q": "Do I need an appointment?",
+      "a": "Walk-ins are seen during consulting hours, but a WhatsApp message or a call ahead means far less waiting, especially in the evening session."
+    },
+    {
+      "q": "Is there a special diet during treatment?",
+      "a": "No strict diet is needed. You may be asked to avoid strong flavours such as raw onion, garlic or coffee immediately before and after taking a remedy."
+    },
+    {
+      "q": "Where exactly is the clinic and is there parking?",
+      "a": "Kappalandimukku, Kochi — near the Bharat Petroleum pump, about ten minutes from Fort Kochi. There is free parking, and the consulting rooms are on the ground floor."
+    }
+  ],
+  "_reviewsNote": "Excerpts of real 5-star Google reviews (collected Sep 2026), trimmed for length with the doctor's name spelling standardised. Only entries with rating 5 are rendered. Never add words a patient didn't write.",
+  "reviews": [
+    {
+      "name": "Arush V.",
+      "rating": 5,
+      "condition": "Adenoids",
+      "text": "We consulted this homeopathy clinic for an adenoid problem and took treatment for about one month. We have noticed good improvement. Earlier there was mouth breathing during sleep and snoring, but now both have reduced significantly. Overall, a very satisfactory experience."
+    },
+    {
+      "name": "Auria K.",
+      "rating": 5,
+      "condition": "Allergy cough",
+      "text": "Dr. Talal's kindness is as effective as his medicines. I received excellent treatment for my acute allergy cough, and despite it being a Sunday, he kindly provided an emergency consultation and medication for my daughter, who was in pain from a stomach infection."
+    },
+    {
+      "name": "Sumayya N.",
+      "rating": 5,
+      "condition": "Allergy & snoring",
+      "text": "Great experience! We saw a significant improvement in my son's allergy symptoms and snoring within just two weeks of starting treatment. Very happy with the results so far."
+    },
+    {
+      "name": "Magline F.",
+      "rating": 5,
+      "condition": "General care",
+      "text": "I had a very pleasant experience with Dr. Talal. Professional, patient and took time to listen to all my concerns. The treatment was effective and I felt well taken care of throughout the process. Highly recommend."
+    },
+    {
+      "name": "Shahina S.",
+      "rating": 5,
+      "condition": "Adenoids",
+      "text": "My daughter had adenoids 95% and surgery was suggested. She was experiencing many difficulties like sleeping with her mouth open, snoring, inability to study, inattentiveness."
+    },
+    {
+      "name": "Karishma R.",
+      "rating": 5,
+      "condition": "Child's cough",
+      "text": "Dr. Talal and Dr. Safna, your medicine has reduced my son's cough. He is better now. It is good medicine. Not only that, your caring is the best."
+    },
+    {
+      "name": "Asha S. N.",
+      "rating": 5,
+      "condition": "Child's treatment",
+      "text": "Nalla oru consultation anu enthe molkk kittiyee. Ipo medicine start cheyithitt nalla mattam und kunju. Thank you doctor",
+      "translation": "My daughter had a good consultation. Since starting the medicine, she has improved a lot."
+    },
+    {
+      "name": "Shameer A.",
+      "rating": 5,
+      "condition": "General care",
+      "text": "I had an excellent experience with the services and the medications provided."
+    }
+  ]
+}

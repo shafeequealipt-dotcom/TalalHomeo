@@ -1,0 +1,107 @@
+---
+// Sliding strip of patient reviews. Only 5-star reviews are ever rendered —
+// enforced here, not left to whoever edits clinic.json.
+import clinic from '../data/clinic.json';
+import Icon from './Icon.astro';
+
+const reviews = clinic.reviews.filter((r) => r.rating === 5);
+const initial = (name: string) => name.trim().charAt(0).toUpperCase();
+---
+
+<section class="reviews" aria-labelledby="reviews-heading">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="kicker">Patient reviews</p>
+        <h2 id="reviews-heading">Why families keep coming back.</h2>
+      </div>
+      <div class="section-head-aside">
+        <a class="text-link" href={clinic.links.reviews} target="_blank" rel="noopener noreferrer">
+          Read all {clinic.rating.count} Google reviews <Icon name="arrow" />
+        </a>
+        <div class="slider-controls">
+          <button class="slider-btn" type="button" data-slide="-1" aria-label="Previous reviews">
+            <Icon name="chevronLeft" />
+          </button>
+          <button class="slider-btn" type="button" data-slide="1" aria-label="Next reviews">
+            <Icon name="chevronRight" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="slider" data-slider aria-roledescription="carousel" aria-label="Five-star patient reviews">
+      <ul class="slider-track" tabindex="0">
+        {reviews.map((r, i) => (
+          <li class="review-card" aria-roledescription="slide" aria-label={`Review ${i + 1} of ${reviews.length}`}>
+            <div class="review-top">
+              <span class="stars" aria-hidden="true">★★★★★</span>
+              <span class="visually-hidden">Rated 5 out of 5.</span>
+              <span class="tag">{r.condition}</span>
+            </div>
+            <blockquote>“{r.text}”</blockquote>
+            {r.translation && <p class="review-translation">{r.translation}</p>}
+            <div class="review-by">
+              <span class="review-avatar" aria-hidden="true">{initial(r.name)}</span>
+              <span>
+                <span class="review-name">{r.name}</span>
+                <span class="review-meta">Google review</span>
+              </span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll<HTMLElement>('[data-slider]').forEach((slider) => {
+    const section = slider.closest('section')!;
+    const track = slider.querySelector<HTMLElement>('.slider-track')!;
+    const behavior: ScrollBehavior = reduceMotion ? 'auto' : 'smooth';
+
+    const step = () => {
+      const card = track.querySelector('li');
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return card ? card.getBoundingClientRect().width + gap : track.clientWidth;
+    };
+
+    // Wraps around at either end so the strip never dead-ends.
+    const go = (dir: number) => {
+      const max = track.scrollWidth - track.clientWidth;
+      if (dir > 0 && track.scrollLeft >= max - 4) track.scrollTo({ left: 0, behavior });
+      else if (dir < 0 && track.scrollLeft <= 4) track.scrollTo({ left: max, behavior });
+      else track.scrollBy({ left: dir * step(), behavior });
+    };
+
+    section.querySelectorAll<HTMLButtonElement>('[data-slide]').forEach((btn) =>
+      btn.addEventListener('click', () => go(Number(btn.dataset.slide)))
+    );
+
+    // Auto-advance every 5s; pauses while the visitor is hovering, focused,
+    // touching, or has scrolled the section out of view.
+    if (reduceMotion) return;
+    let timer: number | undefined;
+    let visible = false;
+    const stop = () => window.clearInterval(timer);
+    const start = () => {
+      stop();
+      if (visible) timer = window.setInterval(() => go(1), 5000);
+    };
+
+    section.addEventListener('mouseenter', stop);
+    section.addEventListener('mouseleave', start);
+    section.addEventListener('focusin', stop);
+    section.addEventListener('focusout', start);
+    track.addEventListener('touchstart', stop, { passive: true });
+    track.addEventListener('touchend', start, { passive: true });
+
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      visible ? start() : stop();
+    }, { threshold: 0.4 }).observe(track);
+  });
+</script>

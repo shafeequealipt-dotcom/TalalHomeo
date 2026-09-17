@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import clinic from '../../data/clinic.json';
+---
+
+<Base
+  title="Treatments | Homoeopathy for Allergies, Adenoids, Migraine & Skin — Kochi"
+  description="Homoeopathic treatment in Kochi for allergic rhinitis and sinusitis, children's adenoids, migraine and headaches, skin and hair complaints, and general health."
+>
+  <section>
+    <div class="wrap">
+      <div class="breadcrumb"><a href="/">Home</a> <span>/</span> <span>Treatments</span></div>
+      <p class="kicker">What we treat</p>
+      <h1>Treatments at the centre.</h1>
+      <p class="lede">
+        Five areas patients come to us for most often. Each is treated constitutionally — the
+        remedy is chosen for you, not for the diagnosis — and reviewed at every follow-up.
+      </p>
+
+      <div class="cards">
+        {clinic.services.map((s) => (
+          <a class="card" href={`/services/${s.slug}`}>
+            <span class="card-no">{s.no}</span>
+            <h3>{s.title}</h3>
+            <p>{s.short}</p>
+            <span class="go">Learn more <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Not sure which applies to you?</h2>
+      <p>Describe what's troubling you on WhatsApp — we'll tell you whether we can help and when to come in.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href={clinic.links.whatsapp} target="_blank" rel="noopener noreferrer">
+          <Icon name="whatsapp" /> Message on WhatsApp
+        </a>
+        <a class="btn btn-ghost" href={`tel:${clinic.phone.tel}`}>
+          <Icon name="phone" /> {clinic.phone.display}
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

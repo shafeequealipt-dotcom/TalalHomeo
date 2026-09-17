@@ -1,0 +1,56 @@
+---
+import { Image } from 'astro:assets';
+import clinic from '../data/clinic.json';
+import logo from '../assets/logo.jpeg';
+import Icon from './Icon.astro';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+
+const links = [
+  { href: '/about', label: 'About' },
+  { href: '/services', label: 'Treatments' },
+  { href: '/blog', label: 'Health Notes' },
+  { href: '/contact', label: 'Visit' },
+];
+---
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">
+      <Image src={logo} alt="" width={96} height={96} class="brand-mark" loading="eager" />
+      <span class="brand-text">
+        <span class="brand-name">Dr. Talal's Alsharaf</span>
+        <span class="brand-sub">Homoeo Medical Centre · Kochi</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main">
+      {links.map((l) => (
+        <a href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>
+      ))}
+    </nav>
+
+    <div class="nav-social">
+      <a class="icon-btn" href={clinic.links.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in a new tab)">
+        <Icon name="instagram" />
+      </a>
+      <a class="icon-btn" href={clinic.links.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook (opens in a new tab)">
+        <Icon name="facebook" />
+      </a>
+      <a class="icon-btn wide-only" href={clinic.links.directions} target="_blank" rel="noopener noreferrer" aria-label="Get directions on Google Maps (opens in a new tab)">
+        <Icon name="map" />
+      </a>
+    </div>
+
+    <div class="nav-actions">
+      <a class="btn btn-ghost" href={`tel:${clinic.phone.tel}`} aria-label={`Call ${clinic.phone.display}`}>
+        <Icon name="phone" /> Call
+      </a>
+      <a class="btn btn-wa" href={clinic.links.whatsapp} target="_blank" rel="noopener noreferrer">
+        <Icon name="whatsapp" /> <span><span class="wide-only">Book on </span>WhatsApp</span>
+      </a>
+    </div>
+  </div>
+</header>

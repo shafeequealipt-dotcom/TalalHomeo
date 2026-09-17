@@ -1,0 +1,124 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import DoctorPhoto from '../components/DoctorPhoto.astro';
+import clinic from '../data/clinic.json';
+---
+
+<Base
+  title="About the Centre | Dr. Talal's Alsharaf Homoeo Medical Centre, Kochi"
+  description="Dr. Talal's Alsharaf Homoeo Medical Centre is a homoeopathy practice at Kappalandimukku, Kochi. Meet the consulting doctors and read how we approach treatment."
+>
+  <section>
+    <div class="wrap">
+      <p class="kicker">About the centre</p>
+      <h1>A homoeopathic clinic in the heart of Kochi.</h1>
+
+      <div class="prose">
+        <p class="lede">
+          {clinic.name} sits at Kappalandimukku, near the Bharat Petroleum pump — about ten
+          minutes from Fort Kochi, and within easy reach of Palluruthy, Thoppumpady and the
+          Ernakulam side.
+        </p>
+        <p>
+          The practice is built on classical homoeopathy: detailed case-taking first, then a
+          remedy chosen for the individual rather than for the label on the diagnosis. Patients
+          come to us with complaints that have usually been managed for a while already —
+          allergic rhinitis that returns every season, a child's adenoids with surgery on the
+          table, migraines that have outlasted several prescriptions, skin that flares and settles
+          and flares again.
+        </p>
+        <p>
+          Consultations run seven days a week across a morning and an evening session, and
+          treatment is always planned around the care you are already receiving — never in place
+          of it without your physician's involvement.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt" id="doctors">
+    <div class="wrap">
+      <p class="kicker">The doctors</p>
+      <h2>Who you'll be seeing.</h2>
+
+      <div class="people">
+        {clinic.doctors.map((d) => (
+          <div class="person">
+            <DoctorPhoto
+              photo={d.photo}
+              alt={`${d.name}, ${d.role}`}
+              widths={[360, 640]}
+              sizes="(min-width: 780px) 340px, 90vw"
+              class="person-photo"
+            />
+            <h3>{d.name}</h3>
+            <div class="quals">{d.quals}</div>
+            <div class="role">{d.role}</div>
+            <p>{d.bio}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="visit-grid">
+        <div>
+          <p class="kicker">What a consultation looks like</p>
+          <h2>The first visit takes longer. That's the point.</h2>
+          <div class="prose">
+            <p>
+              Expect to be asked about far more than the complaint you came in with — sleep,
+              appetite, digestion, temperature, stress, family history, what makes things better
+              or worse. In homoeopathy those details are what separate one remedy from another.
+            </p>
+            <p>
+              Bring your current prescriptions, any recent lab work or scans, and a rough
+              timeline of when the problem started. If you're coming for a child, bring the ENT
+              or pediatrician's notes.
+            </p>
+          </div>
+        </div>
+
+        <div class="visit-facts">
+          <div class="fact">
+            <Icon name="stethoscope" />
+            <div>
+              <h4>Bring your reports</h4>
+              <p>Prescriptions, scans, allergy panels and ENT notes all help.</p>
+            </div>
+          </div>
+          <div class="fact">
+            <Icon name="wallet" />
+            <div>
+              <h4>Consultation fee</h4>
+              <p>{clinic.consultationFee} per consultation. Google Pay and cash accepted.</p>
+            </div>
+          </div>
+          <div class="fact">
+            <Icon name="clock" />
+            <div>
+              <h4>Follow-ups</h4>
+              <p>Progress is reviewed at every visit and the plan adjusted accordingly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Come and talk to us.</h2>
+      <p>Send a message on WhatsApp with what's troubling you and we'll tell you when to come in.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href={clinic.links.whatsapp} target="_blank" rel="noopener noreferrer">
+          <Icon name="whatsapp" /> Message on WhatsApp
+        </a>
+        <a class="btn btn-ghost" href="/contact">Hours &amp; directions</a>
+      </div>
+    </div>
+  </section>
+</Base>
