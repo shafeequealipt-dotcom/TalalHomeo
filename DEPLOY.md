@@ -34,34 +34,38 @@ Your instance's VCN → Security Lists → the list attached to its subnet → A
 
 **b) The instance's own firewall (iptables)** — handled by the setup script in step 3.
 
-## 3. One-time server setup
+## 3. Server setup
 
-From your Mac, copy the setup script to the server and run it there:
+From your Mac, in the `alsharaf/` folder, copy the `deploy/` folder up and run the script from the folder that contains it:
 
 ```bash
-scp -i /path/to/your-oracle-key.key deploy/setup-server.sh <user>@<SERVER_IP>:~
-ssh -i /path/to/your-oracle-key.key <user>@<SERVER_IP>
-```
-Then, on the server:
-```bash
-mkdir -p alsharaf-deploy && cd alsharaf-deploy
-# copy deploy/nginx.conf up too — the script needs it alongside itself:
-```
-Actually simplest: copy the whole `deploy/` folder up instead of just the script:
-```bash
-# from your Mac, in the alsharaf/ folder:
-scp -i /path/to/your-oracle-key.key -r deploy <user>@<SERVER_IP>:~/alsharaf-deploy
-ssh -i /path/to/your-oracle-key.key <user>@<SERVER_IP>
-cd ~/alsharaf-deploy
-chmod +x setup-server.sh
-./setup-server.sh
+scp -i /path/to/your-oracle-key.key -r deploy ubuntu@<SERVER_IP>:~/deploy
+ssh -i /path/to/your-oracle-key.key ubuntu@<SERVER_IP> 'cd ~ && bash deploy/setup-server.sh'
 ```
 
-This installs nginx, creates `/var/www/alsharaf`, installs the site config, and opens ports 80/443 in the instance's own firewall. It's safe to re-run.
+This installs nginx, the site config, security headers, rate limiting and fail2ban, and opens ports 80/443 in the instance firewall. It only touches this site's own files, so other sites on the same server are unaffected. Safe to re-run.
 
-Once `dig +short drtalalhomeo.in` shows your server's IP **and** step 2a is done, get HTTPS:
+Once `dig +short drtalalhomeo.in` returns **only** your server's IP (no GoDaddy parking addresses) and step 2a is done, get HTTPS:
+
 ```bash
-./setup-server.sh --ssl
+ssh -i /path/to/your-oracle-key.key ubuntu@<SERVER_IP> 'cd ~ && bash deploy/setup-server.sh --ssl'
+```
+
+The script then switches to `deploy/nginx-ssl.conf` automatically. Certificates renew on their own.
+
+### Config files in `deploy/`
+
+| File | Purpose |
+|---|---|
+| `nginx.conf` | HTTP-only site config, used until a certificate exists |
+| `nginx-ssl.conf` | HTTPS config: redirects HTTP → HTTPS and `www` → bare domain |
+| `site-body.conf` | Everything the site serves, shared by both configs |
+| `security-headers.conf` | CSP, HSTS, clickjacking and other browser security headers |
+| `ratelimit.conf` | Per-IP request rate limit |
+
+Changing a security header? Test locally first, since `npm run dev` doesn't send them:
+```bash
+npm run build && npm run preview:secure   # http://127.0.0.1:4322 — check the browser console
 ```
 
 ## 4. Push the code to GitHub
@@ -128,4 +132,5 @@ CI rebuilds, `sitemap.xml` updates, the server gets the new page — no server l
 - **Site unreachable at all** → almost always the Oracle VCN Security List (step 2a) — the most commonly missed step.
 - **"Connection refused" specifically** → nginx isn't running: `sudo systemctl status nginx` on the server.
 - **GitHub Action fails at "Deploy to Oracle server"** → check the 4 secrets are exactly right, and that the public key is in `~/.ssh/authorized_keys` on the server for that exact user.
-- **HTTPS certificate step fails** → DNS (step 1) hasn't finished spreading yet, or port 443 isn't open yet (step 2). Wait and retry `./setup-server.sh --ssl`.
+- **HTTPS certificate step fails with an IP that isn't your server** → GoDaddy's default parking records are still on the domain. Delete every A record for `@` except your server's IP, wait for `dig` to show only that IP, then retry. Let's Encrypt allows 5 failed attempts per hour.
+- **`https://drtalalhomeo.in` shows a different site** → no certificate for this domain yet, so nginx hands HTTPS requests to another site on the server. Fixed by getting the certificate.

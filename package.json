@@ -8,7 +8,8 @@
     "build": "astro build && node scripts/generate-sitemap.mjs",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "bash scripts/deploy.sh"
+    "deploy": "bash scripts/deploy.sh",
+    "preview:secure": "node scripts/preview-with-headers.mjs"
   },
   "dependencies": {
     "astro": "^5.14.1"

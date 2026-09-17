@@ -1,0 +1,15 @@
+# Keeps Astro and its dependencies patched. A stale framework is one of the
+# more common ways a static site ends up with a known, published vulnerability
+# sitting in its build tooling.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

@@ -17,6 +17,11 @@ concurrency:
   group: deploy-production
   cancel-in-progress: false
 
+# Least privilege: this workflow only reads the repo and pushes files to the
+# server over SSH — it never needs to write back to GitHub.
+permissions:
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest

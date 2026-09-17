@@ -16,6 +16,16 @@ interface Props {
 
 const { title, description, schema, ogType = 'website' } = Astro.props;
 
+/**
+ * JSON.stringify output goes into a <script> tag via set:html, which skips
+ * Astro's normal HTML-escaping. A literal "</script>" inside a stringified
+ * value (a blog title, a review quote — anything not hand-written by us)
+ * would close the tag early and let whatever follows run as markup/script.
+ * Escaping "<" as \u003c makes that string impossible to form, without
+ * changing what the JSON decodes back to.
+ */
+const safeJsonLd = (data: unknown) => JSON.stringify(data).replace(/</g, '\\u003c');
+
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site).href;
 const ogImage = new URL('/og.png', Astro.site).href;
 
@@ -89,8 +99,8 @@ const clinicSchema = {
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(clinicSchema)} />
-    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+    <script type="application/ld+json" set:html={safeJsonLd(clinicSchema)} />
+    {schema && <script type="application/ld+json" set:html={safeJsonLd(schema)} />}
   </head>
 
   <body>
