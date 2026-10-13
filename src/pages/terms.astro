@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import clinic from '../data/clinic.json';
+
+const effective = '13 October 2026';
+const address = `${clinic.address.line1}, ${clinic.address.line2}, ${clinic.address.city}, ${clinic.address.state} ${clinic.address.postalCode}`;
+---
+
+<Base
+  title={`Terms and Conditions | ${clinic.shortName}`}
+  description={`The terms for using drtalalhomeo.in, the website of ${clinic.name}, including how its health information should and should not be used.`}
+>
+  <article class="article">
+    <div class="wrap">
+      <div class="breadcrumb">
+        <a href="/">Home</a> <span>/</span> Terms and conditions
+      </div>
+
+      <header class="article-head">
+        <div class="article-meta">
+          <span>Effective {effective}</span>
+        </div>
+        <h1>Terms and conditions</h1>
+        <p class="lede">
+          The terms for using drtalalhomeo.in. The most important one: this website gives
+          general information, not medical advice for you personally.
+        </p>
+      </header>
+
+      <div class="article-body">
+        <h2>About these terms</h2>
+        <p>
+          This website is run by {clinic.name}, {address}. By using the website you agree to
+          these terms. If you do not agree with them, please do not use it.
+        </p>
+
+        <h2>General information, not medical advice</h2>
+        <p>
+          The pages and health notes on this website describe conditions and the clinic's
+          approach in general terms. They are not a diagnosis, a prescription or a substitute
+          for seeing a doctor, and reading them does not make you a patient of the clinic.
+        </p>
+        <ul>
+          <li>Do not start, stop or change any prescribed medicine because of something you read here.</li>
+          <li>Do not delay or cancel treatment or surgery that a doctor has advised without discussing it with that doctor.</li>
+          <li>If a symptom is severe, sudden or getting worse, go to a hospital or call emergency services. Do not wait for a reply from the clinic.</li>
+        </ul>
+
+        <h2>No promise of results</h2>
+        <p>
+          Homoeopathic treatment is chosen for the individual, and people respond differently.
+          Nothing on this website is a guarantee of a result or of how long treatment will take.
+          The patient reviews shown are individual experiences shared publicly on Google, not a
+          promise that yours will be the same.
+        </p>
+
+        <h2>Clinic details may change</h2>
+        <p>
+          We try to keep the consulting hours, the consultation fee ({clinic.consultationFee}
+          at the time of writing), the address and the doctors' details up to date, but they can
+          change without notice. Please call
+          <a href={`tel:${clinic.phone.tel}`}>{clinic.phone.display}</a> to confirm before you
+          travel.
+        </p>
+
+        <h2>Using the content</h2>
+        <p>
+          The text, photographs and design of this website belong to the clinic. You are welcome
+          to read it, share links to it and quote short passages with a link back. Please do not
+          republish whole pages or use the clinic's name, logo or doctors' photographs without
+          our written permission.
+        </p>
+
+        <h2>Links to other services</h2>
+        <p>
+          The website links to services run by other companies, including WhatsApp, Google Maps,
+          Instagram and Facebook. We do not control them and are not responsible for their
+          content or for how they handle your information.
+        </p>
+
+        <h2>Our responsibility</h2>
+        <p>
+          We take care over what we publish, but the website is provided as it is, and we do not
+          promise that it is complete, current or free of errors, or that it will always be
+          available. To the extent the law allows, the clinic is not liable for loss or harm
+          that comes from relying on the website instead of getting medical advice in person.
+          Nothing in these terms limits the responsibility a doctor has to a patient under
+          treatment at the clinic.
+        </p>
+
+        <h2>Privacy</h2>
+        <p>
+          How the website handles information is set out in our
+          <a href="/privacy">privacy policy</a>.
+        </p>
+
+        <h2>Changes and governing law</h2>
+        <p>
+          We may update these terms. The version on this page, with the effective date at the
+          top, is the one that applies. These terms are governed by the laws of India, and any
+          dispute about them will be heard by the courts at Ernakulam, Kerala.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          {clinic.name}, {address}. Phone
+          <a href={`tel:${clinic.phone.tel}`}>{clinic.phone.display}</a>, or message us on
+          <a href={clinic.links.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a>.
+        </p>
+      </div>
+    </div>
+  </article>
+</Base>

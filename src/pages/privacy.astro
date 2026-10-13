@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro';
+import clinic from '../data/clinic.json';
+
+const effective = '13 October 2026';
+const address = `${clinic.address.line1}, ${clinic.address.line2}, ${clinic.address.city}, ${clinic.address.state} ${clinic.address.postalCode}`;
+---
+
+<Base
+  title={`Privacy Policy | ${clinic.shortName}`}
+  description={`How ${clinic.name} handles information on drtalalhomeo.in and in the TalalClinic tool it uses to manage its Google Business Profile.`}
+>
+  <article class="article">
+    <div class="wrap">
+      <div class="breadcrumb">
+        <a href="/">Home</a> <span>/</span> Privacy policy
+      </div>
+
+      <header class="article-head">
+        <div class="article-meta">
+          <span>Effective {effective}</span>
+        </div>
+        <h1>Privacy policy</h1>
+        <p class="lede">
+          What this website and our TalalClinic tool do with information — in short, very
+          little. This page covers the website drtalalhomeo.in and the TalalClinic tool only.
+        </p>
+      </header>
+
+      <div class="article-body">
+        <h2>Who we are</h2>
+        <p>
+          This website is run by {clinic.name}, a homoeopathy clinic at {address}. "We" and
+          "the clinic" on this page mean that clinic.
+        </p>
+
+        <h2>What the website does not collect</h2>
+        <p>
+          The website is a set of plain pages. It has no sign-up, no login, no contact form and
+          no online booking, so there is nowhere on it to enter personal details. We do not use
+          analytics or advertising trackers, and the site sets no cookies of its own.
+        </p>
+
+        <h2>What is recorded automatically</h2>
+        <p>
+          Like almost every web server, ours keeps a technical log of requests: the IP address,
+          the date and time, the page requested and the browser type. We use this only to keep
+          the site running and to spot abuse. Log files are deleted automatically after about
+          14 days. We do not use them to identify individual visitors.
+        </p>
+
+        <h2>Services from other companies</h2>
+        <p>Some parts of the site are provided by other companies, who receive your IP address when your browser loads them:</p>
+        <ul>
+          <li>
+            <strong>Google Fonts</strong> supplies the typefaces on every page.
+          </li>
+          <li>
+            <strong>Google Maps</strong> supplies the map on the home page and the Visit page,
+            and may set its own cookies.
+          </li>
+        </ul>
+        <p>
+          The site also links to WhatsApp, Google Maps, Google reviews, Instagram and Facebook.
+          Once you follow one of those links you are on that company's service, under its own
+          privacy policy.
+        </p>
+
+        <h2>When you call or message us</h2>
+        <p>
+          If you phone the clinic or message us on WhatsApp, we receive your number and whatever
+          you choose to tell us. We use it to reply and to arrange your visit. WhatsApp is
+          operated by Meta, which handles messages under its own privacy policy.
+        </p>
+
+        <h2>Patient records</h2>
+        <p>
+          Anything you share in a consultation is part of your medical care and is not handled
+          through this website. This page does not describe it. Please ask at the clinic if you
+          have questions about your consultation records.
+        </p>
+
+        <h2>Reviews shown on the site</h2>
+        <p>
+          The site shows short excerpts of reviews that patients posted publicly on Google, with
+          the reviewer's name shortened. If one of them is yours and you would like it removed,
+          tell us and we will take it down.
+        </p>
+
+        <h2>The TalalClinic tool and Google data</h2>
+        <p>
+          TalalClinic is an internal tool that the clinic uses to publish its own updates. It
+          is not a public app: it has no sign-up and no users other than the clinic.
+        </p>
+        <ul>
+          <li>
+            <strong>What it accesses.</strong> It connects to Google's Business Profile API with
+            the <code style="overflow-wrap: anywhere;">https://www.googleapis.com/auth/business.manage</code> permission, granted
+            by the Google account that manages the clinic's own Business Profile.
+          </li>
+          <li>
+            <strong>What it does with that access.</strong> It creates posts on the clinic's own
+            Business Profile listing, and can remove posts it created. It does not read or
+            reply to reviews, and it does not access any other business's profile or any other
+            person's Google data.
+          </li>
+          <li>
+            <strong>What it stores.</strong> Only the access credential that Google issues to
+            the clinic, kept on a private server that the clinic controls. It stores no personal
+            information about patients or website visitors.
+          </li>
+          <li>
+            <strong>Sharing.</strong> Nothing obtained through Google's API is sold, shared with
+            anyone else, or used for advertising.
+          </li>
+        </ul>
+        <p>
+          TalalClinic's use and transfer of information received from Google APIs adheres to the
+          <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer">Google API Services User Data Policy</a>,
+          including the Limited Use requirements. The clinic can withdraw the tool's access at
+          any time from its Google account settings.
+        </p>
+
+        <h2>Questions and requests</h2>
+        <p>
+          If you have contacted us and would like your number or messages deleted, or you have
+          any question about this page, call
+          <a href={`tel:${clinic.phone.tel}`}>{clinic.phone.display}</a>, message us on
+          <a href={clinic.links.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a>,
+          or write to {clinic.name}, {address}.
+        </p>
+
+        <h2>Changes to this page</h2>
+        <p>
+          If what we do changes, we will update this page and the effective date at the top.
+          See also our <a href="/terms">terms and conditions</a>.
+        </p>
+      </div>
+    </div>
+  </article>
+</Base>
