@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "deploy": "bash scripts/deploy.sh",
-    "preview:secure": "node scripts/preview-with-headers.mjs"
+    "preview:secure": "node scripts/preview-with-headers.mjs",
+    "update:rating": "node scripts/update-google-rating.mjs"
   },
   "dependencies": {
     "astro": "^5.14.1"

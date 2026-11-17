@@ -1,0 +1,68 @@
+name: Update Google rating
+
+# WHEN THIS RUNS
+#  1. schedule — 1st of every month, 03:00 UTC (08:30 IST)
+#  2. manual   — the "Run workflow" button, e.g. after a burst of new reviews
+on:
+  schedule:
+    - cron: '0 3 1 * *'
+  workflow_dispatch:
+
+concurrency:
+  group: update-rating
+  cancel-in-progress: false
+
+# contents: write  — commit the updated clinic.json back to main
+# actions: write   — start the deploy workflow afterwards (see the last step)
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # No `npm ci` needed: the script uses only Node built-ins.
+      - name: Fetch rating and review count from Google
+        id: fetch
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+        run: node scripts/update-google-rating.mjs
+
+      - name: Commit if changed
+        if: steps.fetch.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/clinic.json
+          git commit -m "Update Google rating: ${{ steps.fetch.outputs.summary }}"
+          # The blog agent may have pushed while this ran.
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      # A push made with this workflow's own token deliberately doesn't trigger
+      # other workflows (GitHub's guard against loops), so deploy.yml won't fire
+      # on the commit above by itself. Start it explicitly instead.
+      - name: Deploy the new numbers
+        if: steps.fetch.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main
+
+# ---------------------------------------------------------------------------
+# REQUIRED REPOSITORY SECRET  (Settings → Secrets and variables → Actions)
+#
+#   GOOGLE_PLACES_API_KEY  a Google Cloud API key with "Places API (New)"
+#                          enabled. Restrict it to that one API. Setup steps
+#                          in DEPLOY.md.
+# ---------------------------------------------------------------------------

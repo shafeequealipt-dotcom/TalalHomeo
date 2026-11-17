@@ -22,11 +22,17 @@ const faqSchema = {
     acceptedAnswer: { '@type': 'Answer', text: f.a },
   })),
 };
+
+// The rating and count update monthly (scripts/update-google-rating.mjs), so
+// nothing on this page may hard-code them. Stars round to the nearest whole
+// star: 4.6 shows five, 4.4 shows four.
+const filledStars = Math.round(Number(clinic.rating.value));
+const ratingStars = '★'.repeat(filledStars) + '☆'.repeat(5 - filledStars);
 ---
 
 <Base
   title="Homoeopathy Clinic in Kochi | Dr. Talal's Alsharaf Homoeo Medical Centre"
-  description="Homoeopathic treatment in Kochi for allergies, sinusitis, adenoids in children, migraine and skin complaints. Rated 5.0 from 163 Google reviews. Call 089217 11721."
+  description={`Homoeopathic treatment in Kochi for allergies, sinusitis, adenoids in children, migraine and skin complaints. Rated ${clinic.rating.value} from ${clinic.rating.count} Google reviews. Call ${clinic.phone.display}.`}
   schema={faqSchema}
 >
   <!-- ===================== HERO ===================== -->
@@ -57,7 +63,7 @@ const faqSchema = {
 
       <div class="hero-intro">
         <a class="rating-chip" href={clinic.links.reviews} target="_blank" rel="noopener noreferrer">
-          <span class="stars" aria-hidden="true">★★★★★</span>
+          <span class="stars" aria-hidden="true">{ratingStars}</span>
           <span>{clinic.rating.value}</span>
           <span class="count">from {clinic.rating.count} Google reviews</span>
         </a>
@@ -99,7 +105,7 @@ const faqSchema = {
   <!-- ===================== TRUST STRIP ===================== -->
   <section class="trust">
     <div class="wrap trust-grid">
-      <div class="trust-item"><span class="n">5.0★</span><span class="l">Google rating</span></div>
+      <div class="trust-item"><span class="n">{clinic.rating.value}★</span><span class="l">Google rating</span></div>
       <div class="trust-item"><span class="n">{clinic.rating.count}</span><span class="l">Patient reviews</span></div>
       <div class="trust-item"><span class="n">{clinic.doctors.length}</span><span class="l">Consulting doctors</span></div>
       <div class="trust-item"><span class="n">7 days</span><span class="l">Open every week</span></div>

@@ -116,6 +116,40 @@ curl -s https://drtalalhomeo.in/sitemap.xml | head -20
 
 Then submit `https://drtalalhomeo.in/sitemap.xml` once in [Google Search Console](https://search.google.com/search-console).
 
+## 8. Monthly Google rating update
+
+On the 1st of every month, `.github/workflows/update-rating.yml` asks Google for the clinic's current rating and review count, updates `src/data/clinic.json`, commits it, and redeploys. Every number on the site — the hero badge, the stats strip, the reviews link, the search-result description, and the rating Google reads — comes from that one file.
+
+It needs one secret: a Google Places API key.
+
+**a) Create the key** (Google Cloud Console, one time):
+1. Go to [console.cloud.google.com](https://console.cloud.google.com) and create a project (or use an existing one).
+2. **APIs & Services → Library** → search **"Places API (New)"** → **Enable**. (Not the older "Places API".)
+3. **Billing** must be linked to the project. Google requires it even though a monthly check costs nothing — it stays far inside the free allowance.
+4. **APIs & Services → Credentials → Create credentials → API key**.
+5. Click the new key → **API restrictions → Restrict key** → tick only **Places API (New)** → Save. A leaked key restricted this way can't be used for anything else.
+
+**b) Give it to GitHub:** repo → Settings → Secrets and variables → Actions → New repository secret:
+
+| Secret | Value |
+|---|---|
+| `GOOGLE_PLACES_API_KEY` | the key from step a |
+
+**c) Run it once now:** Actions tab → **Update Google rating** → **Run workflow**. The first run looks the clinic up by name and saves its Google Place ID into `clinic.json`, so later runs go straight to it.
+
+**To run locally**, put `export GOOGLE_PLACES_API_KEY="..."` in `~/.zshrc`, open a new terminal, then:
+```bash
+npm run update:rating -- --dry-run   # show the numbers, change nothing
+npm run update:rating                # update clinic.json
+```
+
+**It refuses to write, and the run shows red, when:**
+- the Google listing it finds isn't named like the clinic
+- the review count drops by more than 10% (or 5 reviews) in a month. Small drops are normal, since Google removes spam reviews; a big one usually means the wrong listing
+- Google returns an error (key wrong, API not enabled, billing off). The error message says which
+
+GitHub emails the repo owner when a scheduled run fails.
+
 ## After this, publishing a blog post is just:
 
 ```bash
