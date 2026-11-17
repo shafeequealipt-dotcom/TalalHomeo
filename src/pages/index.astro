@@ -23,7 +23,7 @@ const faqSchema = {
   })),
 };
 
-// The rating and count update monthly (scripts/update-google-rating.mjs), so
+// The rating and count update monthly (scripts/update_google_rating.py), so
 // nothing on this page may hard-code them. Stars round to the nearest whole
 // star: 4.6 shows five, 4.4 shows four.
 const filledStars = Math.round(Number(clinic.rating.value));

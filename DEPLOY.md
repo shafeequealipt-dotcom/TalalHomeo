@@ -118,37 +118,35 @@ Then submit `https://drtalalhomeo.in/sitemap.xml` once in [Google Search Console
 
 ## 8. Monthly Google rating update
 
-On the 1st of every month, `.github/workflows/update-rating.yml` asks Google for the clinic's current rating and review count, updates `src/data/clinic.json`, commits it, and redeploys. Every number on the site — the hero badge, the stats strip, the reviews link, the search-result description, and the rating Google reads — comes from that one file.
+On the 1st of every month at 11:30 IST, the server that runs the Talal blog agent refreshes the clinic's Google rating and review count, commits `src/data/clinic.json`, and pushes — which triggers the normal deploy. Every number on the site (hero badge, stats strip, reviews link, search description, the rating Google reads) comes from that file.
 
-It needs one secret: a Google Places API key.
+It uses the blog agent's existing **Google Business Profile** sign-in, so there's no extra key. The Business Profile API reports the clinic's own average rating and total review count.
 
-**a) Create the key** (Google Cloud Console, one time):
-1. Go to [console.cloud.google.com](https://console.cloud.google.com) and create a project (or use an existing one).
-2. **APIs & Services → Library** → search **"Places API (New)"** → **Enable**. (Not the older "Places API".)
-3. **Billing** must be linked to the project. Google requires it even though a monthly check costs nothing — it stays far inside the free allowance.
-4. **APIs & Services → Credentials → Create credentials → API key**.
-5. Click the new key → **API restrictions → Restrict key** → tick only **Places API (New)** → Save. A leaked key restricted this way can't be used for anything else.
-
-**b) Give it to GitHub:** repo → Settings → Secrets and variables → Actions → New repository secret:
-
-| Secret | Value |
+| Piece | Where |
 |---|---|
-| `GOOGLE_PLACES_API_KEY` | the key from step a |
+| Updater | `scripts/update_google_rating.py` (Python, no dependencies) |
+| Commit + push | `deploy/update-rating.sh` |
+| Schedule | `deploy/talal-rating.service` + `deploy/talal-rating.timer` |
+| Credentials | the agent's `.env`: `TALAL_GBP_*` and `TALAL_GitHub_Token` |
+| Runs in | the agent's checkout, `/opt/talal-agent/TalalHomeo` |
 
-**c) Run it once now:** Actions tab → **Update Google rating** → **Run workflow**. The first run looks the clinic up by name and saves its Google Place ID into `clinic.json`, so later runs go straight to it.
-
-**To run locally**, put `export GOOGLE_PLACES_API_KEY="..."` in `~/.zshrc`, open a new terminal, then:
+**Install** (one time, on the agent server, from that checkout):
 ```bash
-npm run update:rating -- --dry-run   # show the numbers, change nothing
-npm run update:rating                # update clinic.json
+sudo cp deploy/talal-rating.service deploy/talal-rating.timer /etc/systemd/system/
+sudo systemctl daemon-reload && sudo systemctl enable --now talal-rating.timer
 ```
 
-**It refuses to write, and the run shows red, when:**
-- the Google listing it finds isn't named like the clinic
-- the review count drops by more than 10% (or 5 reviews) in a month. Small drops are normal, since Google removes spam reviews; a big one usually means the wrong listing
-- Google returns an error (key wrong, API not enabled, billing off). The error message says which
+**Run now / check:**
+```bash
+sudo systemctl start talal-rating.service        # refresh immediately
+journalctl -u talal-rating.service -n 20          # what happened
+systemctl list-timers talal-rating.timer          # next run
+```
 
-GitHub emails the repo owner when a scheduled run fails.
+**It refuses to write (run shows failed in the journal) when:**
+- the listing's title doesn't contain "Talal" — the location ID points somewhere else
+- the count drops by more than 10% (or 5) in a month. Small drops are normal, since Google removes spam reviews
+- Google rejects the sign-in. `invalid_grant` means the Business Profile consent was revoked or expired — redo the agent's one-time login (`gbp_auth.py login`)
 
 ## After this, publishing a blog post is just:
 

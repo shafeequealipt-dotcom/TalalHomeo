@@ -57,7 +57,7 @@ A 13-page website, built with [Astro](https://astro.build). Pages are plain HTML
 
 ### Google rating stays current
 
-On the 1st of each month the site checks Google for the clinic's latest rating and review count and updates itself — the badge, the stats strip, the "Read all … reviews" link and the search description. It uses Google's official Places API, refuses to publish a number that looks wrong, and needs one API key to start (see §7). Setup: `DEPLOY.md` §8.
+On the 1st of each month the site checks Google for the clinic's latest rating and review count and updates itself — the badge, the stats strip, the "Read all … reviews" link and the search description. It reuses the blog agent's Google Business Profile sign-in, so no extra key is needed, and it refuses to publish a number that looks wrong. Details: `DEPLOY.md` §8.
 
 ### Found on Google and put into the site
 
@@ -121,7 +121,7 @@ agent pushes a post  →  GitHub builds the site  →  new page created
 | `src/styles/global.css` | All design: colours, fonts, spacing |
 | `deploy/` | Server setup: nginx configs, security headers, rate limit, setup script |
 | `.github/workflows/deploy.yml` | Publishes the site on every push |
-| `.github/workflows/update-rating.yml` | Monthly Google rating and review-count refresh |
+| `scripts/update_google_rating.py` | Monthly Google rating and review-count refresh (runs on the agent server) |
 | `DEPLOY.md` | Full hosting walkthrough |
 | `BLOG-AGENT-SPEC.md` | Rules for the blog agent |
 | `README.md` | Quick start for developers |
@@ -144,8 +144,7 @@ npm run preview:secure  # check the site with live security settings applied
 2. **Submit the sitemap** in Google Search Console: add `drtalalhomeo.in` as a Domain property, then submit `sitemap.xml`
 3. **Add the website to your Google Business Profile** — it's currently blank there, and that link matters for local search
 4. **Confirm the unverified details** listed below
-5. **Add a Google Places API key** so the review count updates monthly — steps in `DEPLOY.md` §8. Until then the site keeps showing 5.0 from 163
-6. **Reboot the server** at a quiet time — a kernel update is waiting. It also runs your trading bots and doctor-engine, so pick the moment yourself
+5. **Reboot the server** at a quiet time — a kernel update is waiting. It also runs your trading bots and doctor-engine, so pick the moment yourself
 
 **Details still unconfirmed** (also listed at the top of `clinic.json`)
 

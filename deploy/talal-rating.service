@@ -1,0 +1,12 @@
+# Installed to /etc/systemd/system/ on the Talal agent server. See DEPLOY.md §8.
+[Unit]
+Description=Talal Homeo monthly Google rating refresh
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=ubuntu
+# The blog agent's settings: Business Profile sign-in and GitHub token.
+EnvironmentFile=/opt/talal-agent/TalalTelegramAgent/agent/.env
+ExecStart=/opt/talal-agent/TalalHomeo/deploy/update-rating.sh

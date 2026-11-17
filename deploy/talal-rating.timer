@@ -1,0 +1,13 @@
+# Installed to /etc/systemd/system/ on the Talal agent server. See DEPLOY.md §8.
+# 06:00 UTC (11:30 IST) on the 1st — hours after the daily blog agent finishes,
+# so the two never touch the repo checkout at the same time.
+[Unit]
+Description=Run the Talal Homeo Google rating refresh monthly
+
+[Timer]
+OnCalendar=*-*-01 06:00:00 UTC
+# If the server was off on the 1st, run at the next boot instead of skipping.
+Persistent=true
+
+[Install]
+WantedBy=timers.target
