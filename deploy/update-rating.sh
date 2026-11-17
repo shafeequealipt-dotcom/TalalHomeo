@@ -20,6 +20,9 @@ fi
 
 summary=$(python3 -c "import json;r=json.load(open('src/data/clinic.json'))['rating'];print(f\"{r['value']} from {r['count']} reviews\")")
 git add src/data/clinic.json
-git commit -q -m "Update Google rating: $summary"
+# Identity passed per-commit (as the blog agent does) rather than relying on
+# server git config, which is unset.
+git -c user.name="Talal Homeo Bot" -c user.email="bot@drtalalhomeo.in" \
+  commit -q -m "Update Google rating: $summary"
 git push -q origin main
 echo "✓ pushed: $summary"
