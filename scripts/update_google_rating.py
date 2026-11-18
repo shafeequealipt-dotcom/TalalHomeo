@@ -97,9 +97,15 @@ MAX_CHARS = 420  # longer reviews are cut at a sentence end, marked with "…"
 # and serious diagnoses, stay off the site even when the review is 5-star.
 BLOCKED = re.compile(
     r"\b(cure[ds]?|curing|miracle|guarantee[ds]?|permanent(ly)?|cancer|tumou?r)\b"
+    r"|\b(completely|fully) (free|fine|recovered|gone|healed|normal|ok|cured)\b"
+    r"|side[- ]?effects?"   # "no side effects" is an advertising claim, not a review detail
+    r"|allopath"            # comparisons that steer readers away from other medical care
     r"|https?://|www\.|\d{8,}",  # links and phone numbers
     re.I,
 )
+
+# "My son Ekansh has…": a child's first name has no place on the clinic's website.
+NAMES_A_CHILD = re.compile(r"\bmy (son|daughter|child|kid|baby|boy|girl)\s+[A-Z][a-z]{2,}\b(?!'s)")
 
 # Short common words: a review written in English uses plenty of them, while
 # Malayalam written in Latin letters ("nalla oru consultation…") uses almost none.
@@ -120,12 +126,16 @@ TOPICS = [
     ("Thyroid", r"thyroid"),
     ("Joint pain", r"joint|knee|arthritis|back pain"),
 ]
-EMOJI = re.compile("[\U0001F000-\U0001FFFF☀-➿️‍]")
+EMOJI = re.compile("[\U0001F000-\U0001FFFF\u2600-\u27BF\uFE0F\u200B-\u200D\u2060\uFEFF]")
+QUOTES = "\"'\u201c\u201d\u2018\u2019 "
+TITLES = {"dr", "dr.", "mr", "mr.", "mrs", "mrs.", "ms", "ms.", "adv", "adv."}
 
 
 def short_name(display: str) -> str:
     """'SUMAYYA NOUFAL' -> 'Sumayya N.'  (first name + last initial only)."""
     parts = display.split()
+    while len(parts) > 1 and parts[0].lower() in TITLES:
+        parts = parts[1:]
     first = parts[0] if parts[0][:1].isupper() and not parts[0].isupper() else parts[0].capitalize()
     return f"{first} {parts[-1][0].upper()}." if len(parts) > 1 else first
 
@@ -148,7 +158,7 @@ def judge(review: dict, exclude: list[str]) -> tuple[str | None, dict | None]:
         return "anonymous", None
     if any(x in display.lower() for x in exclude):
         return "excluded reviewer", None
-    text = " ".join(EMOJI.sub("", review.get("comment") or "").split())
+    text = " ".join(EMOJI.sub("", review.get("comment") or "").split()).strip(QUOTES)
     if "(Translated by Google)" in text or "(Original)" in text:
         return "not English", None
     words = re.findall(r"[A-Za-z']+", text.lower())
@@ -158,6 +168,8 @@ def judge(review: dict, exclude: list[str]) -> tuple[str | None, dict | None]:
         return "not English", None
     if BLOCKED.search(text):
         return "claim/link wording", None
+    if NAMES_A_CHILD.search(text):
+        return "names a child", None
     topic = next((name for name, pat in TOPICS if re.search(pat, text, re.I)), "General care")
     return None, {
         # Hash, not Google's id, so nothing ties back to the reviewer's account.
