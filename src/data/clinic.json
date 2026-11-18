@@ -144,24 +144,8 @@
       "note": "Bring any allergy test reports and your current inhalers or antihistamines to the first consultation so treatment can be coordinated safely."
     },
     {
-      "slug": "pediatric-care",
-      "no": "02",
-      "title": "Pediatric Care & Adenoids",
-      "short": "Adenoid enlargement, snoring, mouth-breathing, recurrent colds and tonsillitis in children.",
-      "intro": "Parents come to this clinic most often for enlarged adenoids — a child snoring through the night, breathing through the mouth, sleeping badly and struggling to concentrate at school, with surgery already on the table. Treatment is gentle, reviewed at every visit, and coordinated with your ENT specialist.",
-      "treats": [
-        "Adenoid enlargement",
-        "Snoring and mouth-breathing",
-        "Recurrent tonsillitis",
-        "Frequent colds and fevers",
-        "Poor appetite",
-        "Sleep and attention concerns"
-      ],
-      "note": "Never stop or postpone a surgery your specialist has advised without discussing it with them first. Bring the scan or scope report to your consultation."
-    },
-    {
       "slug": "migraine-headaches",
-      "no": "03",
+      "no": "02",
       "title": "Migraine & Headaches",
       "short": "Migraine, tension headaches and the triggers behind the pattern.",
       "intro": "Headache care here begins with the pattern — when attacks come, what sets them off, how they end, what else changes around them. Remedies are chosen individually against that picture and reviewed over follow-ups rather than swapped at every visit.",
@@ -174,6 +158,22 @@
         "Headache with nausea"
       ],
       "note": "A simple headache diary for two weeks before your visit — timing, triggers, duration — makes the first consultation considerably more useful."
+    },
+    {
+      "slug": "pediatric-care",
+      "no": "03",
+      "title": "Pediatric Care & Adenoids",
+      "short": "Adenoid enlargement, snoring, mouth-breathing, recurrent colds and tonsillitis in children.",
+      "intro": "Parents come to this clinic most often for enlarged adenoids — a child snoring through the night, breathing through the mouth, sleeping badly and struggling to concentrate at school, with surgery already on the table. Treatment is gentle, reviewed at every visit, and coordinated with your ENT specialist.",
+      "treats": [
+        "Adenoid enlargement",
+        "Snoring and mouth-breathing",
+        "Recurrent tonsillitis",
+        "Frequent colds and fevers",
+        "Poor appetite",
+        "Sleep and attention concerns"
+      ],
+      "note": "Never stop or postpone a surgery your specialist has advised without discussing it with them first. Bring the scan or scope report to your consultation."
     },
     {
       "slug": "skin-hair",
@@ -208,7 +208,35 @@
       "note": "Bring recent lab work. Homoeopathic treatment runs alongside your existing prescriptions — never in place of them without your physician's involvement."
     }
   ],
-  "_conditionGroupsNote": "Dr. Talal's own list of conditions treated (WhatsApp, 17 Nov 2026), grouped for the site. Category names for the Thyroid & Lifestyle, Liver & Kidney and Digestive & Anorectal groups were chosen by us (his list gave no heading) — confirm with him. Abbreviations are expanded for patients. `guide` links a category to the closest treatment guide in `services`.",
+  "_focusAreasNote": "Home page 'Our focus areas' cards, in priority order. Edit order here.",
+  "focusAreas": [
+    {
+      "title": "Allergy",
+      "text": "Asthma, allergic rhinitis and sinusitis, plus eczema and other skin allergies.",
+      "href": "/services/allergy-sinusitis"
+    },
+    {
+      "title": "Piles",
+      "text": "Piles, anal fissure and fistula, alongside other digestive complaints.",
+      "href": "/conditions#digestive-anorectal"
+    },
+    {
+      "title": "Migraine",
+      "text": "Migraine and recurring headaches, treated by looking at the pattern behind them.",
+      "href": "/services/migraine-headaches"
+    },
+    {
+      "title": "Carpal Tunnel Syndrome",
+      "text": "CTS: numbness, tingling and pain in the hand and wrist, and other joint complaints.",
+      "href": "/conditions#joint-complaints"
+    },
+    {
+      "title": "Adenoids",
+      "text": "Enlarged adenoids in children: snoring, mouth-breathing and disturbed sleep.",
+      "href": "/services/pediatric-care"
+    }
+  ],
+  "_conditionGroupsNote": "Dr. Talal's own list of conditions treated (WhatsApp, 17 Nov 2026), grouped for the site. Category names for the Thyroid & Lifestyle, Liver & Kidney and Digestive & Anorectal groups were chosen by us (his list gave no heading) — confirm with him. Abbreviations are expanded for patients. `guide` links a category to the closest treatment guide in `services`. Ordered so the clinic's priority topics come first: Allergy, Piles, Migraine, CTS, Adenoid (instruction, 18 Nov 2026). Migraine and Adenoids added as groups at the same time.",
   "conditionGroups": [
     {
       "slug": "respiratory-allergy",
@@ -230,6 +258,49 @@
         "Psoriasis"
       ],
       "guide": "skin-hair"
+    },
+    {
+      "slug": "digestive-anorectal",
+      "title": "Digestive & Anorectal Disorders",
+      "summary": "Acid, bowel and anorectal complaints.",
+      "conditions": [
+        "Piles",
+        "Anal Fissure",
+        "Anal Fistula",
+        "Acidity",
+        "GERD (Acid Reflux)",
+        "IBS (Irritable Bowel Syndrome)",
+        "Constipation"
+      ],
+      "guide": "general-lifestyle"
+    },
+    {
+      "slug": "migraine",
+      "title": "Migraine & Headaches",
+      "summary": "Recurring headaches, treated by looking at the pattern behind the attacks.",
+      "conditions": [
+        "Migraine"
+      ],
+      "guide": "migraine-headaches"
+    },
+    {
+      "slug": "joint-complaints",
+      "title": "Joint Complaints",
+      "summary": "Pain and stiffness in the joints and hands.",
+      "conditions": [
+        "CTS (Carpal Tunnel Syndrome)",
+        "Osteoarthritis"
+      ],
+      "guide": "general-lifestyle"
+    },
+    {
+      "slug": "adenoids",
+      "title": "Adenoids (Children)",
+      "summary": "Enlarged adenoids in children: snoring, mouth-breathing and disturbed sleep.",
+      "conditions": [
+        "Adenoid Enlargement"
+      ],
+      "guide": "pediatric-care"
     },
     {
       "slug": "hair-fall",
@@ -262,31 +333,6 @@
         "Renal (Kidney) Stone"
       ],
       "guide": null
-    },
-    {
-      "slug": "digestive-anorectal",
-      "title": "Digestive & Anorectal Disorders",
-      "summary": "Acid, bowel and anorectal complaints.",
-      "conditions": [
-        "Acidity",
-        "GERD (Acid Reflux)",
-        "IBS (Irritable Bowel Syndrome)",
-        "Constipation",
-        "Piles",
-        "Anal Fissure",
-        "Anal Fistula"
-      ],
-      "guide": "general-lifestyle"
-    },
-    {
-      "slug": "joint-complaints",
-      "title": "Joint Complaints",
-      "summary": "Pain and stiffness in the joints and hands.",
-      "conditions": [
-        "CTS (Carpal Tunnel Syndrome)",
-        "Osteoarthritis"
-      ],
-      "guide": "general-lifestyle"
     }
   ],
   "faqs": [
@@ -366,5 +412,9 @@
       "condition": "General care",
       "text": "I had an excellent experience with the services and the medications provided."
     }
+  ],
+  "_reviewExcludeNote": "Reviewer names (case-insensitive substring) never shown on the site, e.g. reviews by people connected to the clinic or this site.",
+  "reviewExclude": [
+    "shafeequeali"
   ]
 }

@@ -1,10 +1,28 @@
 ---
 // Sliding strip of patient reviews. Only 5-star reviews are ever rendered —
-// enforced here, not left to whoever edits clinic.json.
+// enforced here, not left to whoever edits the data files.
+//
+// Source: src/data/reviews-pool.json (refreshed monthly from Google by
+// scripts/update_google_rating.py), rotated each month by pickMonthly().
+// Until a pool with enough reviews exists, the hand-picked clinic.reviews
+// are shown instead.
 import clinic from '../data/clinic.json';
 import Icon from './Icon.astro';
+import { monthKey, pickMonthly } from '../lib/pick-reviews.mjs';
 
-const reviews = clinic.reviews.filter((r) => r.rating === 5);
+const SHOW = 8;
+// import.meta.glob tolerates the pool file not existing yet.
+const poolFile = Object.values(
+  import.meta.glob<{ default: { reviews: any[] } }>('../data/reviews-pool.json', { eager: true })
+)[0];
+const pool = (poolFile?.default.reviews ?? []).filter((r) => r.rating === 5);
+
+// REVIEW_MONTH=YYYY-MM lets a build preview another month's set.
+const month = import.meta.env.REVIEW_MONTH || monthKey();
+const reviews =
+  pool.length >= SHOW
+    ? pickMonthly(pool, month, SHOW).map((r) => ({ ...r, condition: r.topic }))
+    : clinic.reviews.filter((r) => r.rating === 5);
 const initial = (name: string) => name.trim().charAt(0).toUpperCase();
 ---
 

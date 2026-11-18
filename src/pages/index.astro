@@ -32,7 +32,7 @@ const ratingStars = '★'.repeat(filledStars) + '☆'.repeat(5 - filledStars);
 
 <Base
   title="Homoeopathy Clinic in Kochi | Dr. Talal's Alsharaf Homoeo Medical Centre"
-  description={`Homoeopathic treatment in Kochi for allergies, sinusitis, adenoids in children, migraine and skin complaints. Rated ${clinic.rating.value} from ${clinic.rating.count} Google reviews. Call ${clinic.phone.display}.`}
+  description={`Homoeopathic treatment in Kochi for allergies, piles, migraine, carpal tunnel syndrome and adenoids in children. Rated ${clinic.rating.value} from ${clinic.rating.count} Google reviews. Call ${clinic.phone.display}.`}
   schema={faqSchema}
 >
   <!-- ===================== HERO ===================== -->
@@ -74,8 +74,8 @@ const ratingStars = '★'.repeat(filledStars) + '☆'.repeat(5 - filledStars);
 
         <p class="lede">
           A consultation here starts with your whole story — sleep, appetite, stress, history —
-          before any remedy is chosen. Families across Kochi come to us for allergies and
-          sinusitis, children's adenoids, migraine and long-standing skin complaints.
+          before any remedy is chosen. Families across Kochi come to us for allergies, piles,
+          migraine, carpal tunnel syndrome and children's adenoids.
         </p>
 
         <div class="hero-meta">
@@ -118,16 +118,15 @@ const ratingStars = '★'.repeat(filledStars) + '☆'.repeat(5 - filledStars);
       <p class="kicker">Our focus areas</p>
       <h2>Gentle answers for stubborn complaints.</h2>
       <p class="lede">
-        Five areas patients come to this clinic for most often — each treated constitutionally,
-        reviewed at every follow-up, and coordinated with whatever care you are already under.
+        Where we focus first — each treated constitutionally, reviewed at every follow-up, and
+        coordinated with whatever care you are already under.
       </p>
 
       <div class="cards">
-        {clinic.services.map((s) => (
-          <a class="card" href={`/services/${s.slug}`}>
-            <span class="card-no">{s.no}</span>
-            <h3>{s.title}</h3>
-            <p>{s.short}</p>
+        {clinic.focusAreas.map((f) => (
+          <a class="card" href={f.href}>
+            <h3>{f.title}</h3>
+            <p>{f.text}</p>
             <span class="go">Learn more <Icon name="arrow" /></span>
           </a>
         ))}

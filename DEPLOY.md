@@ -122,6 +122,8 @@ On the 1st of every month at 11:30 IST, the server that runs the Talal blog agen
 
 It uses the blog agent's existing **Google Business Profile** sign-in, so there's no extra key. The Business Profile API reports the clinic's own average rating and total review count.
 
+The same run refreshes **`src/data/reviews-pool.json`**: every 5-star review written in English with a real explanation (25+ words), minus anything with cure/guarantee wording, links or phone numbers, and minus names in `reviewExclude` in `clinic.json`. The site shows 8 of them, a different set each month (`src/lib/pick-reviews.mjs`): the daily scheduled deploy switches to the new set on the 1st, with at most 3 reviews per topic. To preview another month's set locally: `REVIEW_MONTH=2027-01 npm run build`.
+
 | Piece | Where |
 |---|---|
 | Updater | `scripts/update_google_rating.py` (Python, no dependencies) |
