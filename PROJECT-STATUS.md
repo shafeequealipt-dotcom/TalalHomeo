@@ -13,11 +13,13 @@
 | Website | **Live** at https://drtalalhomeo.in |
 | HTTPS | **On.** Certificate valid to 16 Dec 2026, renews itself |
 | Hosting | Oracle Cloud server (Ubuntu 22.04), shared with your other sites |
-| Code | On GitHub, 5 commits |
-| Automatic publishing | **Not finished** — needs 4 GitHub secrets (see §7) |
+| Code | On GitHub — **public** repo (see note below) |
+| Automatic publishing | **Working.** Every push to GitHub rebuilds and publishes the site, including the blog agent's daily posts |
 | Google indexing | **Not done** — sitemap needs submitting (see §7) |
 
-Until the GitHub secrets are added, changes are put live by hand. After that, `git push` publishes automatically.
+`git push` publishes automatically. Verified end to end on 18 Nov 2026: the blog agent pushed a post, GitHub built it, and it was live on the site within a minute.
+
+**Why the repo is public:** GitHub's free plan gives a private repo only a small monthly allowance of automatic-build time, shared across *all* your private repos. In mid-November that allowance ran out and every deploy stopped ("The job was not started because recent account payments have failed or your spending limit needs to be increased"). Public repos get unlimited free builds. The history was checked first: no keys, tokens, passwords or server addresses are in it. **Never commit a secret to this repo** — keep them in the server's `.env` or GitHub Secrets.
 
 ---
 
@@ -140,11 +142,10 @@ npm run preview:secure  # check the site with live security settings applied
 
 **Yours**
 
-1. **Add 4 GitHub secrets** so pushes publish automatically — steps in `DEPLOY.md` §5. Until then, changes go live by hand
-2. **Submit the sitemap** in Google Search Console: add `drtalalhomeo.in` as a Domain property, then submit `sitemap.xml`
-3. **Add the website to your Google Business Profile** — it's currently blank there, and that link matters for local search
-4. **Confirm the unverified details** listed below
-5. **Reboot the server** at a quiet time — a kernel update is waiting. It also runs your trading bots and doctor-engine, so pick the moment yourself
+1. **Submit the sitemap** in Google Search Console: add `drtalalhomeo.in` as a Domain property, then submit `sitemap.xml`
+2. **Add the website to your Google Business Profile** — it's currently blank there, and that link matters for local search
+3. **Confirm the unverified details** listed below
+4. **Reboot the server** at a quiet time — a kernel update is waiting. It also runs your trading bots and doctor-engine, so pick the moment yourself
 
 **Details still unconfirmed** (also listed at the top of `clinic.json`)
 
