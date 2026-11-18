@@ -33,6 +33,7 @@ A 13-page website, built with [Astro](https://astro.build). Pages are plain HTML
 |---|---|
 | Home | `/` |
 | About the centre | `/about` |
+| Conditions we treat (22 conditions in 7 groups) | `/conditions` |
 | Treatments (index) | `/services` |
 | Allergy & Sinusitis | `/services/allergy-sinusitis` |
 | Pediatric Care & Adenoids | `/services/pediatric-care` |
@@ -47,6 +48,7 @@ A 13-page website, built with [Astro](https://astro.build). Pages are plain HTML
 ### What's on the site
 
 - **Doctors panel** — photos, qualifications and designations for Dr. Talal M, Dr. Tariq M and Dr. Safna M.S, on the home page and the About page
+- **Conditions list** — Dr. Talal's own list of 22 conditions, grouped into 7 areas, on its own page and as a home page section. Edit it in `clinic.json` (`conditionGroups`)
 - **Consulting hours** — Mon–Sat 10:00 am–1:00 pm and 5:00 pm–9:00 pm; Sun 11:00 am–1:00 pm
 - **Review slider** — 8 real 5-star Google reviews that scroll automatically, covering adenoids, allergies, children's cough and general care. Only 5-star reviews can ever appear
 - **Contact everywhere** — Call and Book on WhatsApp in the header; a fixed bar on phones with Call, WhatsApp, Directions, Instagram, Facebook

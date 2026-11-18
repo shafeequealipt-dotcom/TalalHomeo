@@ -590,6 +590,8 @@ a.card:hover {
   gap: var(--s2);
 }
 a.card:hover .go { gap: var(--s3); }
+/* An <svg> with a viewBox and no width/height expands to fill its container; size the arrow explicitly. */
+.card .go svg { width: 16px; height: 16px; flex: none; }
 
 /* ============================================================
    Reviews slider
@@ -1032,3 +1034,65 @@ a.card:hover .go { gap: var(--s3); }
   .nav-inner { gap: var(--s3); }
   .nav-links { gap: var(--s3); }
 }
+
+/* ============================================================
+   Conditions page
+   ============================================================ */
+
+/* Jump-to-category chips: tap targets, wrap on small screens */
+.jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin: var(--s5) 0 var(--s6);
+}
+.jump a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--fg);
+  font-size: var(--t-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 160ms var(--ease), color 160ms var(--ease), background-color 160ms var(--ease);
+}
+.jump a:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+
+.cond-grid { display: grid; gap: var(--s4); grid-template-columns: 1fr; align-items: start; /* short cards keep their own height, no dead space */ }
+@media (min-width: 760px) { .cond-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.cond-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--s5);
+  /* anchor links from the home page land below the sticky header */
+  scroll-margin-top: calc(var(--nav-h) + var(--s4));
+}
+.cond-card h2 { font-size: var(--t-xl); margin: 0; }
+.cond-card .cond-summary { margin: 0; color: var(--fg-muted); font-size: var(--t-sm); }
+.cond-card .text-link { margin-top: auto; min-height: 0; padding-top: var(--s2); }
+
+.cond-list {
+  list-style: none;
+  margin: var(--s1) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s2);
+}
+.cond-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+  padding-top: var(--s2);
+  border-top: 1px solid var(--border);
+  font-size: var(--t-base);
+}
+.cond-list svg { width: 18px; height: 18px; color: var(--primary); flex: none; margin-top: 4px; }

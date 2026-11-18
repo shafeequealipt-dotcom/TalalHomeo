@@ -208,6 +208,87 @@
       "note": "Bring recent lab work. Homoeopathic treatment runs alongside your existing prescriptions — never in place of them without your physician's involvement."
     }
   ],
+  "_conditionGroupsNote": "Dr. Talal's own list of conditions treated (WhatsApp, 17 Nov 2026), grouped for the site. Category names for the Thyroid & Lifestyle, Liver & Kidney and Digestive & Anorectal groups were chosen by us (his list gave no heading) — confirm with him. Abbreviations are expanded for patients. `guide` links a category to the closest treatment guide in `services`.",
+  "conditionGroups": [
+    {
+      "slug": "respiratory-allergy",
+      "title": "Respiratory Allergy",
+      "summary": "Breathing and nasal complaints that flare with dust, pollen, weather or infection.",
+      "conditions": [
+        "Asthma",
+        "Allergic Rhinitis",
+        "Sinusitis"
+      ],
+      "guide": "allergy-sinusitis"
+    },
+    {
+      "slug": "skin-allergy",
+      "title": "Skin Allergy",
+      "summary": "Itching, rashes and chronic skin flare-ups.",
+      "conditions": [
+        "Eczema",
+        "Psoriasis"
+      ],
+      "guide": "skin-hair"
+    },
+    {
+      "slug": "hair-fall",
+      "title": "Hair Fall",
+      "summary": "Hair loss and scalp complaints.",
+      "conditions": [
+        "Dandruff",
+        "Alopecia (hair loss)"
+      ],
+      "guide": "skin-hair"
+    },
+    {
+      "slug": "thyroid-lifestyle",
+      "title": "Thyroid & Lifestyle Disorders",
+      "summary": "Long-term hormonal and lifestyle-related conditions.",
+      "conditions": [
+        "Thyroid Disorder",
+        "Diabetes",
+        "Hypertension"
+      ],
+      "guide": "general-lifestyle"
+    },
+    {
+      "slug": "liver-kidney",
+      "title": "Liver & Kidney Diseases",
+      "summary": "Organ-related conditions that need regular monitoring alongside your physician.",
+      "conditions": [
+        "Liver Diseases",
+        "Kidney Diseases",
+        "Renal (Kidney) Stone"
+      ],
+      "guide": null
+    },
+    {
+      "slug": "digestive-anorectal",
+      "title": "Digestive & Anorectal Disorders",
+      "summary": "Acid, bowel and anorectal complaints.",
+      "conditions": [
+        "Acidity",
+        "GERD (Acid Reflux)",
+        "IBS (Irritable Bowel Syndrome)",
+        "Constipation",
+        "Piles",
+        "Anal Fissure",
+        "Anal Fistula"
+      ],
+      "guide": "general-lifestyle"
+    },
+    {
+      "slug": "joint-complaints",
+      "title": "Joint Complaints",
+      "summary": "Pain and stiffness in the joints and hands.",
+      "conditions": [
+        "CTS (Carpal Tunnel Syndrome)",
+        "Osteoarthritis"
+      ],
+      "guide": "general-lifestyle"
+    }
+  ],
   "faqs": [
     {
       "q": "How long does homoeopathic treatment take to work?",

@@ -35,6 +35,7 @@ function rank(route) {
   if (route === '/blog') return { changefreq: 'daily', priority: '0.9' };
   if (route.startsWith('/blog/')) return { changefreq: 'monthly', priority: '0.7' };
   if (route.startsWith('/services')) return { changefreq: 'monthly', priority: '0.8' };
+  if (route === '/conditions') return { changefreq: 'monthly', priority: '0.8' };
   return { changefreq: 'monthly', priority: '0.6' };
 }
 

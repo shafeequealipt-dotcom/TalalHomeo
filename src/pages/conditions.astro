@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import clinic from '../data/clinic.json';
+
+const total = clinic.conditionGroups.reduce((n, g) => n + g.conditions.length, 0);
+const guides = Object.fromEntries(clinic.services.map((s) => [s.slug, s.title]));
+---
+
+<Base
+  title="Conditions We Treat | Homoeopathy for Asthma, Eczema, Thyroid, Piles — Kochi"
+  description="Homoeopathic treatment in Kochi for respiratory and skin allergy, hair fall, thyroid and lifestyle disorders, liver and kidney diseases, digestive and piles complaints, and joint problems."
+>
+  <section>
+    <div class="wrap">
+      <div class="breadcrumb"><a href="/">Home</a> <span>/</span> <span>Conditions</span></div>
+      <p class="kicker">Conditions we treat</p>
+      <h1>{total} conditions, grouped by area.</h1>
+      <p class="lede">
+        Long-standing complaints are what homoeopathy is best suited to. Each is treated
+        constitutionally — the remedy is chosen for you, not for the diagnosis — and reviewed at
+        every follow-up.
+      </p>
+
+      <nav class="jump" aria-label="Jump to a category">
+        {clinic.conditionGroups.map((g) => <a href={`#${g.slug}`}>{g.title}</a>)}
+      </nav>
+
+      <div class="cond-grid">
+        {clinic.conditionGroups.map((g) => (
+          <article class="cond-card" id={g.slug} aria-labelledby={`${g.slug}-h`}>
+            <h2 id={`${g.slug}-h`}>{g.title}</h2>
+            <p class="cond-summary">{g.summary}</p>
+            <ul class="cond-list">
+              {g.conditions.map((c) => (
+                <li><Icon name="check" /> <span>{c}</span></li>
+              ))}
+            </ul>
+            {g.guide && (
+              <a class="text-link" href={`/services/${g.guide}`}>
+                Read the guide: {guides[g.guide]} <Icon name="arrow" />
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+
+      <aside class="medical-note">
+        <strong>Treatment runs alongside your doctor's care, not instead of it.</strong>
+        Conditions such as diabetes, hypertension, thyroid, liver and kidney disease need regular
+        monitoring. Never stop or change a prescribed medicine without your physician's advice, and
+        bring your latest reports and prescriptions to the first consultation.
+      </aside>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Don't see your complaint?</h2>
+      <p>This list covers the conditions we treat most often. Message us on WhatsApp with what's troubling you and we'll tell you whether we can help.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href={clinic.links.whatsapp} target="_blank" rel="noopener noreferrer">
+          <Icon name="whatsapp" /> Message on WhatsApp
+        </a>
+        <a class="btn btn-ghost" href={`tel:${clinic.phone.tel}`}>
+          <Icon name="phone" /> {clinic.phone.display}
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

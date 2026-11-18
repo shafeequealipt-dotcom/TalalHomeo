@@ -115,7 +115,7 @@ const ratingStars = '★'.repeat(filledStars) + '☆'.repeat(5 - filledStars);
   <!-- ===================== SERVICES ===================== -->
   <section>
     <div class="wrap">
-      <p class="kicker">What we treat</p>
+      <p class="kicker">Our focus areas</p>
       <h2>Gentle answers for stubborn complaints.</h2>
       <p class="lede">
         Five areas patients come to this clinic for most often — each treated constitutionally,
@@ -135,8 +135,33 @@ const ratingStars = '★'.repeat(filledStars) + '☆'.repeat(5 - filledStars);
     </div>
   </section>
 
-  <!-- ===================== APPROACH ===================== -->
+  <!-- ===================== CONDITIONS ===================== -->
   <section class="section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Conditions we treat</p>
+          <h2>Find your complaint.</h2>
+        </div>
+        <div class="section-head-aside">
+          <a class="text-link" href="/conditions">See all conditions <Icon name="arrow" /></a>
+        </div>
+      </div>
+
+      <div class="cards">
+        {clinic.conditionGroups.map((g) => (
+          <a class="card" href={`/conditions#${g.slug}`}>
+            <h3>{g.title}</h3>
+            <p>{g.conditions.join(' · ')}</p>
+            <span class="go">View <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== APPROACH ===================== -->
+  <section>
     <div class="wrap">
       <div class="visit-grid">
         <div>
@@ -198,7 +223,7 @@ const ratingStars = '★'.repeat(filledStars) + '☆'.repeat(5 - filledStars);
 
   <!-- ===================== BLOG PREVIEW ===================== -->
   {posts.length > 0 && (
-    <section class="section-alt">
+    <section>
       <div class="wrap">
         <p class="kicker">Health notes</p>
         <h2>Reading from the clinic.</h2>
@@ -223,7 +248,7 @@ const ratingStars = '★'.repeat(filledStars) + '☆'.repeat(5 - filledStars);
   )}
 
   <!-- ===================== FAQ ===================== -->
-  <section>
+  <section class="section-alt">
     <div class="wrap">
       <p class="kicker">Good to know</p>
       <h2>Questions, answered.</h2>
@@ -239,7 +264,7 @@ const ratingStars = '★'.repeat(filledStars) + '☆'.repeat(5 - filledStars);
   </section>
 
   <!-- ===================== VISIT ===================== -->
-  <section class="section-alt">
+  <section>
     <div class="wrap">
       <p class="kicker">Visit us</p>
       <h2>Find the clinic.</h2>
